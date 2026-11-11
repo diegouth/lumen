@@ -1,0 +1,17 @@
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Dependencias y build (el proyecto no las necesita)
+node_modules/
+dist/
+
+# Archivos temporales
+*.log
+*.tmp
