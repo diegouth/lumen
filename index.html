@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>LUMEN — La última luciérnaga</title>
+  <meta name="description" content="LUMEN es un juego web indie minimalista: guía a la última luciérnaga, recolecta luz y vuelve a encender los faroles del jardín. HTML5 Canvas + Web Audio, sin dependencias.">
+  <meta name="theme-color" content="#04050c">
+  <meta property="og:title" content="LUMEN — La última luciérnaga">
+  <meta property="og:description" content="Un arcade minimalista hecho con JavaScript puro. Juega en línea, sin instalar nada.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    /* Modo captura: desactiva transiciones para tomas de documentación. */
+    if (new URLSearchParams(location.search).has('capture')) {
+      document.documentElement.classList.add('capture');
+    }
+  </script>
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-name">LUMEN</span>
+        <span class="brand-sub">la última luciérnaga</span>
+      </div>
+      <nav class="site-nav" aria-label="Enlaces del proyecto">
+        <a href="docs/GDD.md">GDD</a>
+        <a id="repoLink" href="#" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </header>
+
+    <section class="stage">
+      <div class="frame" id="frame">
+        <canvas id="game" width="960" height="600" aria-label="Área de juego de LUMEN. Usa las flechas o WASD para mover la luciérnaga."></canvas>
+
+        <div class="hud" id="hud" aria-hidden="false">
+          <div class="hud-left">
+            <span class="hud-level" id="hudLevel">NIVEL 1</span>
+            <span class="hud-levelname" id="hudLevelName">Jardín de musgo</span>
+          </div>
+          <div class="hud-center">
+            <div class="energy" id="energyBar" role="progressbar" aria-label="Luz" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+              <div class="energy-fill" id="energyFill"></div>
+            </div>
+            <span class="energy-label" id="energyLabel">LUZ 100</span>
+          </div>
+          <div class="hud-right">
+            <span class="hud-score" id="hudScore">0</span>
+            <button class="icon-btn" id="muteBtn" type="button" aria-pressed="false">SONIDO SÍ</button>
+            <button class="icon-btn" id="pauseBtn" type="button">PAUSA</button>
+          </div>
+        </div>
+
+        <div class="hud-bottom">
+          <div class="lanterns" id="lanterns" aria-label="Faroles encendidos"></div>
+          <div class="combo" id="combo"></div>
+        </div>
+
+        <button class="dash-btn" id="dashBtn" type="button" aria-label="Usar destello">DESTELLO</button>
+
+        <div class="overlay" id="overlay">
+          <section class="panel" id="panel-menu">
+            <p class="eyebrow">Juego web minimalista · HTML5 Canvas</p>
+            <h1 class="title">LUMEN</h1>
+            <p class="subtitle">La última luciérnaga</p>
+            <p class="lede">Las sombras apagaron los faroles del jardín. Solo queda una chispa dispuesta a encenderlos otra vez.</p>
+            <div class="menu-actions">
+              <button class="btn primary" type="button" data-action="play">Jugar</button>
+              <button class="btn" type="button" data-action="help">Cómo jugar</button>
+              <button class="btn ghost" type="button" data-action="credits">Créditos</button>
+            </div>
+            <p class="best">Mejor puntaje <strong id="menuBest">0</strong></p>
+          </section>
+
+          <section class="panel wide" id="panel-help" hidden>
+            <h2>Cómo jugar</h2>
+            <p class="lede left">Eres <strong>Lumen</strong>, la última luciérnaga. Tu luz se consume sola: recoge chispas para mantenerla y enciende los <strong>3 faroles</strong> de cada nivel. Si tu luz llega a cero, el jardín se apaga contigo.</p>
+
+            <div class="keys">
+              <div><span class="key-label">Mover</span><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> o <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></span></div>
+              <div><span class="key-label">Destello</span><span><kbd>Espacio</kbd> · cuesta 12 de luz y disipa sombras</span></div>
+              <div><span class="key-label">Pausa</span><span><kbd>P</kbd> o <kbd>Esc</kbd></span></div>
+              <div><span class="key-label">Sonido</span><span><kbd>M</kbd></span></div>
+              <div><span class="key-label">Táctil</span><span>Arrastra el dedo para volar · botón <em>Destello</em></span></div>
+            </div>
+
+            <ul class="rules">
+              <li>Recolectar una chispa suma <strong>+15 de luz</strong> y puntos según tu combo.</li>
+              <li>Encender un farol cuesta <strong>30 de luz</strong>, otorga puntos y barre las sombras cercanas.</li>
+              <li>Cada golpe de sombra te quita <strong>22 de luz</strong> y te empuja.</li>
+              <li>El combo sube con cada chispa recogida en menos de 2.2 s (máximo ×9).</li>
+            </ul>
+
+            <div class="panel-actions">
+              <button class="btn primary" type="button" data-action="play">Jugar</button>
+              <button class="btn ghost" type="button" data-action="menu">Volver</button>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-credits" hidden>
+            <p class="eyebrow">Créditos</p>
+            <h2>LUMEN</h2>
+            <p class="credit-name" id="creditName">Diego Alejandro Franco Partida</p>
+            <p class="credit-role">Diseño, programación, arte vectorial y audio sintetizado</p>
+            <ul class="credit-list">
+              <li><strong>Motor:</strong> JavaScript puro + Canvas 2D + Web Audio API</li>
+              <li><strong>Música y SFX:</strong> síntesis procedural en el navegador (sin archivos de audio)</li>
+              <li><strong>Tipografía:</strong> tipografías del sistema (sin dependencias externas)</li>
+              <li><strong>Inspiración:</strong> arcades minimalistas y la luz de las luciérnagas</li>
+              <li><strong>Licencia:</strong> MIT · código abierto</li>
+            </ul>
+            <p class="credit-links">
+              <a class="repo-link" href="#" target="_blank" rel="noopener">Repositorio</a>
+              <span aria-hidden="true">·</span>
+              <a class="pages-link" href="#" target="_blank" rel="noopener">Jugar en línea</a>
+            </p>
+            <div class="panel-actions">
+              <button class="btn ghost" type="button" data-action="menu">Volver</button>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-pause" hidden>
+            <p class="eyebrow">Pausa</p>
+            <h2>El jardín espera</h2>
+            <p class="lede">Nivel <strong id="pauseLevel">1</strong> · Puntos <strong id="pauseScore">0</strong></p>
+            <div class="panel-actions">
+              <button class="btn primary" type="button" data-action="resume">Continuar</button>
+              <button class="btn" type="button" data-action="restart">Reiniciar partida</button>
+              <button class="btn ghost" type="button" data-action="menu">Salir al menú</button>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-intro" hidden>
+            <p class="eyebrow" id="introLevel">Nivel 1</p>
+            <h2 id="introName">Jardín de musgo</h2>
+            <p class="lede" id="introText">La luz vuelve poco a poco.</p>
+            <p class="count" id="introCount">Comienza en 3…</p>
+            <div class="panel-actions">
+              <button class="btn primary" type="button" data-action="skipIntro">Empezar ya</button>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-clear" hidden>
+            <p class="eyebrow">Nivel superado</p>
+            <h2 id="clearTitle">El jardín respira</h2>
+            <dl class="stats">
+              <div><dt>Tiempo</dt><dd id="clearTime">0 s</dd></div>
+              <div><dt>Bonus de tiempo</dt><dd id="clearTimeBonus">0</dd></div>
+              <div><dt>Luz restante</dt><dd id="clearLightBonus">0</dd></div>
+              <div><dt>Puntaje total</dt><dd id="clearScore">0</dd></div>
+            </dl>
+            <div class="panel-actions">
+              <button class="btn primary" type="button" data-action="next" id="clearNext">Siguiente nivel</button>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-gameover" hidden>
+            <p class="eyebrow">La noche ganó esta vez</p>
+            <h2>Tu luz se apagó</h2>
+            <p class="lede">Llegaste al nivel <strong id="overLevel">1</strong>. Las chispas seguirán ahí cuando vuelvas.</p>
+            <dl class="stats">
+              <div><dt>Puntaje</dt><dd id="overScore">0</dd></div>
+              <div><dt>Récord</dt><dd id="overBest">0</dd></div>
+            </dl>
+            <div class="panel-actions">
+              <button class="btn primary" type="button" data-action="restart">Reintentar</button>
+              <button class="btn ghost" type="button" data-action="menu">Menú</button>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-victory" hidden>
+            <p class="eyebrow">Final</p>
+            <h2>El jardín vuelve a brillar</h2>
+            <p class="lede">Cinco noches, quince faroles. Lumen no está sola: su luz quedó en cada rincón.</p>
+            <dl class="stats">
+              <div><dt>Puntaje final</dt><dd id="victoryScore">0</dd></div>
+              <div><dt>Récord</dt><dd id="victoryBest">0</dd></div>
+            </dl>
+            <div class="panel-actions">
+              <button class="btn primary" type="button" data-action="restart">Jugar otra vez</button>
+              <button class="btn ghost" type="button" data-action="menu">Menú</button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <p class="stage-hint">Consejo: llega a un farol con al menos <strong>30 de luz</strong> para encenderlo. El destello también puede salvarte.<span class="rotate-hint">Gira el teléfono en horizontal para jugar con más espacio.</span></p>
+    </section>
+
+    <footer class="site-footer">
+      <span>LUMEN · v1.0.0 · <span id="footerYear">2026</span> · Licencia MIT</span>
+      <span>Hecho con JavaScript puro · <a href="docs/GDD.md">Documento de diseño</a></span>
+    </footer>
+  </main>
+
+  <noscript>
+    <p style="text-align:center;padding:24px">LUMEN necesita JavaScript para funcionar. Actívalo y recarga la página.</p>
+  </noscript>
+
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
