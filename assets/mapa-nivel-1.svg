@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" role="img" aria-label="Mapa del nivel 1 de LUMEN, Jardín de musgo">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="80%">
+      <stop offset="0%" stop-color="#081625"/>
+      <stop offset="100%" stop-color="#03060d"/>
+    </radialGradient>
+    <radialGradient id="moss" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0d2a26" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#0d2a26" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd166" stop-opacity=".75"/>
+      <stop offset="100%" stop-color="#ffd166" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="player" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#7ef9ff" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#7ef9ff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#7ef9ff" stroke-opacity=".05"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#a78bfa" fill-opacity=".7"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="600" fill="url(#bg)"/>
+  <rect width="960" height="600" fill="url(#grid)"/>
+
+  <!-- Zonas de musgo -->
+  <g>
+    <ellipse cx="170" cy="120" rx="190" ry="120" fill="url(#moss)"/>
+    <ellipse cx="700" cy="110" rx="220" ry="140" fill="url(#moss)"/>
+    <ellipse cx="520" cy="470" rx="240" ry="130" fill="url(#moss)"/>
+    <ellipse cx="840" cy="440" rx="140" ry="120" fill="url(#moss)"/>
+  </g>
+
+  <!-- Estanque / arroyo -->
+  <path d="M-20 330 C 150 300 240 390 380 370 S 640 300 820 340 S 960 300 990 316"
+        fill="none" stroke="#0e3546" stroke-width="34" stroke-linecap="round" opacity=".8"/>
+  <path d="M-20 330 C 150 300 240 390 380 370 S 640 300 820 340 S 960 300 990 316"
+        fill="none" stroke="#1c6a7a" stroke-width="2" opacity=".5"/>
+
+  <!-- Rocas -->
+  <g fill="#0b1a24" stroke="#1d3b49" stroke-width="1.2">
+    <ellipse cx="300" cy="520" rx="34" ry="20"/>
+    <ellipse cx="640" cy="520" rx="26" ry="16"/>
+    <ellipse cx="760" cy="90" rx="22" ry="14"/>
+    <ellipse cx="110" cy="430" rx="20" ry="13"/>
+  </g>
+
+  <!-- Rutas sugeridas -->
+  <g fill="none" stroke="#7ef9ff" stroke-opacity=".28" stroke-width="1.6" stroke-dasharray="6 8">
+    <path d="M480 372 C 400 330 320 250 226 176"/>
+    <path d="M480 372 C 560 300 650 220 734 166"/>
+    <path d="M480 372 C 486 400 484 410 480 424"/>
+  </g>
+
+  <!-- Faroles -->
+  <g font-family="ui-monospace, Menlo, monospace" text-anchor="middle">
+    <!-- 1 -->
+    <circle cx="220" cy="170" r="58" fill="url(#lamp)" opacity=".35"/>
+    <circle cx="220" cy="170" r="17" fill="none" stroke="#ffd166" stroke-width="1.6" stroke-opacity=".8"/>
+    <circle cx="220" cy="170" r="5" fill="#ffd166"/>
+    <line x1="220" y1="187" x2="220" y2="215" stroke="#ffd166" stroke-opacity=".5" stroke-width="1.5"/>
+    <line x1="210" y1="215" x2="230" y2="215" stroke="#ffd166" stroke-opacity=".5" stroke-width="1.5"/>
+    <text x="220" y="150" font-size="11" fill="#ffe2a0">FAROL 1</text>
+    <!-- 2 -->
+    <circle cx="740" cy="160" r="58" fill="url(#lamp)" opacity=".35"/>
+    <circle cx="740" cy="160" r="17" fill="none" stroke="#ffd166" stroke-width="1.6" stroke-opacity=".8"/>
+    <circle cx="740" cy="160" r="5" fill="#ffd166"/>
+    <line x1="740" y1="177" x2="740" y2="205" stroke="#ffd166" stroke-opacity=".5" stroke-width="1.5"/>
+    <line x1="730" y1="205" x2="750" y2="205" stroke="#ffd166" stroke-opacity=".5" stroke-width="1.5"/>
+    <text x="740" y="140" font-size="11" fill="#ffe2a0">FAROL 2</text>
+    <!-- 3 -->
+    <circle cx="480" cy="430" r="58" fill="url(#lamp)" opacity=".35"/>
+    <circle cx="480" cy="430" r="17" fill="none" stroke="#ffd166" stroke-width="1.6" stroke-opacity=".8"/>
+    <circle cx="480" cy="430" r="5" fill="#ffd166"/>
+    <line x1="480" y1="447" x2="480" y2="475" stroke="#ffd166" stroke-opacity=".5" stroke-width="1.5"/>
+    <line x1="470" y1="475" x2="490" y2="475" stroke="#ffd166" stroke-opacity=".5" stroke-width="1.5"/>
+    <text x="480" y="410" font-size="11" fill="#ffe2a0">FAROL 3</text>
+  </g>
+
+  <!-- Inicio del jugador -->
+  <g>
+    <circle cx="480" cy="370" r="40" fill="url(#player)" opacity=".55"/>
+    <circle cx="480" cy="370" r="7" fill="#eafcff"/>
+    <circle cx="473" cy="370" r="4" fill="#ffd166"/>
+    <text x="480" y="352" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#bffcff">INICIO</text>
+    <text x="480" y="396" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="8" fill="#5f7f90">LUZ 100</text>
+  </g>
+
+  <!-- Spawns de sombras -->
+  <g font-family="ui-monospace, Menlo, monospace" font-size="8" fill="#a78bfa">
+    <line x1="480" y1="10" x2="480" y2="52" stroke="#a78bfa" stroke-opacity=".5" marker-end="url(#arrow)"/>
+    <text x="490" y="30" fill="#a78bfa" fill-opacity=".8">SPAWN</text>
+
+    <line x1="950" y1="300" x2="910" y2="300" stroke="#a78bfa" stroke-opacity=".5" marker-end="url(#arrow)"/>
+    <text x="862" y="290" fill="#a78bfa" fill-opacity=".8">SPAWN</text>
+
+    <line x1="20" y1="300" x2="58" y2="300" stroke="#a78bfa" stroke-opacity=".5" marker-end="url(#arrow)"/>
+    <text x="26" y="322" fill="#a78bfa" fill-opacity=".8">SPAWN</text>
+
+    <line x1="480" y1="590" x2="480" y2="552" stroke="#a78bfa" stroke-opacity=".5" marker-end="url(#arrow)"/>
+    <text x="492" y="572" fill="#a78bfa" fill-opacity=".8">SPAWN</text>
+  </g>
+
+  <!-- Leyenda -->
+  <g transform="translate(24 470)">
+    <rect width="300" height="112" rx="10" fill="#040912" fill-opacity=".88" stroke="#1c3444"/>
+    <text x="14" y="22" font-family="ui-monospace, Menlo, monospace" font-size="9" letter-spacing="3" fill="#7ef9ff">LEYENDA</text>
+    <g font-family="ui-monospace, Menlo, monospace" font-size="9" fill="#9fb4c2">
+      <circle cx="20" cy="40" r="5" fill="#eafcff"/>
+      <text x="34" y="43">Lumen (jugador)</text>
+      <circle cx="20" cy="60" r="5" fill="none" stroke="#ffd166"/>
+      <text x="34" y="63">Farol por encender (3)</text>
+      <circle cx="20" cy="80" r="5" fill="#07030f" stroke="#a78bfa"/>
+      <text x="34" y="83">Sombra (2 en nivel 1)</text>
+      <path d="M14 96 h12" stroke="#7ef9ff" stroke-dasharray="4 4"/>
+      <text x="34" y="99">Ruta sugerida</text>
+    </g>
+  </g>
+
+  <!-- Título -->
+  <g transform="translate(24 24)">
+    <text font-family="ui-monospace, Menlo, monospace" font-size="16" letter-spacing="4" fill="#e9fbff">MAPA · NIVEL 1</text>
+    <text y="20" font-family="ui-monospace, Menlo, monospace" font-size="10" letter-spacing="3" fill="#9dffcb">JARDÍN DE MUSGO · 960 × 600</text>
+  </g>
+
+  <!-- Anotación de comportamiento -->
+  <g transform="translate(650 470)">
+    <rect width="286" height="112" rx="10" fill="#040912" fill-opacity=".88" stroke="#1c3444"/>
+    <text x="14" y="22" font-family="ui-monospace, Menlo, monospace" font-size="9" letter-spacing="3" fill="#7ef9ff">COMPORTAMIENTO</text>
+    <g font-family="ui-monospace, Menlo, monospace" font-size="8.5" fill="#9fb4c2">
+      <text x="14" y="42">· Las sombras entran por los bordes y</text>
+      <text x="14" y="56">  persiguen a Lumen sin tregua.</text>
+      <text x="14" y="74">· Las chispas son atraídas dentro del aura.</text>
+      <text x="14" y="88">· El farol consume 30 de luz y barre</text>
+      <text x="14" y="102">  las sombras en 300 px a la redonda.</text>
+    </g>
+  </g>
+</svg>

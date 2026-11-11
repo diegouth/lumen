@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 900" width="1260" height="900" role="img" aria-label="Storyboard de LUMEN en seis viñetas">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#03050c"/>
+    </radialGradient>
+    <radialGradient id="cyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#7ef9ff" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#7ef9ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="amber" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff4d6"/>
+      <stop offset="35%" stop-color="#ffd166" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#ffd166" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="violet" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#150822"/>
+      <stop offset="55%" stop-color="#0b0416"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity=".25"/>
+    </radialGradient>
+    <radialGradient id="rose" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2a0714"/>
+      <stop offset="100%" stop-color="#07030a"/>
+    </radialGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <rect width="1260" height="900" fill="url(#bg)"/>
+  <text x="40" y="56" font-family="ui-monospace, Menlo, monospace" font-size="20" letter-spacing="6" fill="#e9fbff">STORYBOARD · LUMEN</text>
+  <text x="1220" y="56" text-anchor="end" font-family="ui-monospace, Menlo, monospace" font-size="11" letter-spacing="3" fill="#6f8a9b">BOCETOS DE FLUJO · 6 VIÑETAS</text>
+  <line x1="40" y1="74" x2="1220" y2="74" stroke="#7ef9ff" stroke-opacity=".25"/>
+
+  <!-- ===== Marco genérico ===== -->
+  <g font-family="ui-monospace, Menlo, monospace">
+
+    <!-- VIÑETA 1 -->
+    <g transform="translate(40 100)">
+      <rect width="380" height="360" rx="12" fill="#04070f" stroke="#1c3444"/>
+      <text x="16" y="26" font-size="10" letter-spacing="3" fill="#7ef9ff">01 · MENÚ PRINCIPAL</text>
+      <text x="190" y="120" text-anchor="middle" font-size="42" letter-spacing="10" fill="#eafcff">LUMEN</text>
+      <text x="190" y="148" text-anchor="middle" font-size="9" letter-spacing="5" fill="#9dffcb">LA ÚLTIMA LUCIÉRNAGA</text>
+      <circle cx="190" cy="88" r="26" fill="url(#cyan)" opacity=".8" filter="url(#blur)"/>
+      <circle cx="190" cy="88" r="4" fill="#ffffff"/>
+      <rect x="120" y="190" width="140" height="30" rx="15" fill="#7ef9ff" opacity=".9"/>
+      <text x="190" y="210" text-anchor="middle" font-size="11" letter-spacing="3" fill="#02141b">JUGAR</text>
+      <rect x="120" y="234" width="140" height="30" rx="15" fill="none" stroke="#2a4a5c"/>
+      <text x="190" y="254" text-anchor="middle" font-size="10" letter-spacing="2" fill="#9fb4c2">CÓMO JUGAR</text>
+      <rect x="120" y="278" width="140" height="30" rx="15" fill="none" stroke="#22384a"/>
+      <text x="190" y="298" text-anchor="middle" font-size="10" letter-spacing="2" fill="#6f8a9b">CRÉDITOS</text>
+      <text x="190" y="338" text-anchor="middle" font-size="8" letter-spacing="2" fill="#415a6b">MEJOR PUNTAJE · 0</text>
+    </g>
+
+    <!-- VIÑETA 2 -->
+    <g transform="translate(440 100)">
+      <rect width="380" height="360" rx="12" fill="#04070f" stroke="#1c3444"/>
+      <text x="16" y="26" font-size="10" letter-spacing="3" fill="#7ef9ff">02 · EXPLORACIÓN · NIVEL 1</text>
+      <path d="M0 300 Q 90 270 190 296 T 380 290 L380 360 L0 360 Z" fill="#061019"/>
+      <g stroke="#123039" stroke-width="1.6" opacity=".9">
+        <path d="M40 360 Q 48 310 62 292" fill="none"/>
+        <path d="M330 360 Q 320 315 305 300" fill="none"/>
+      </g>
+      <!-- faroles -->
+      <g>
+        <circle cx="80" cy="120" r="22" fill="url(#amber)" opacity=".35"/>
+        <circle cx="80" cy="120" r="10" fill="none" stroke="#ffd166" stroke-opacity=".8"/>
+        <circle cx="80" cy="120" r="3" fill="#ffd166"/>
+        <circle cx="300" cy="110" r="22" fill="url(#cyan)" opacity=".18"/>
+        <circle cx="300" cy="110" r="10" fill="none" stroke="#7ef9ff" stroke-opacity=".4"/>
+        <circle cx="190" cy="260" r="22" fill="url(#cyan)" opacity=".18"/>
+        <circle cx="190" cy="260" r="10" fill="none" stroke="#7ef9ff" stroke-opacity=".4"/>
+      </g>
+      <!-- chispas -->
+      <g>
+        <circle cx="140" cy="180" r="9" fill="url(#cyan)" opacity=".7"/>
+        <circle cx="140" cy="180" r="2" fill="#fff"/>
+        <circle cx="250" cy="210" r="9" fill="url(#cyan)" opacity=".7"/>
+        <circle cx="250" cy="210" r="2" fill="#fff"/>
+        <circle cx="300" cy="250" r="9" fill="url(#cyan)" opacity=".7"/>
+        <circle cx="300" cy="250" r="2" fill="#fff"/>
+      </g>
+      <!-- sombras -->
+      <g>
+        <circle cx="120" cy="230" r="26" fill="url(#violet)"/>
+        <circle cx="120" cy="230" r="11" fill="#07030f" stroke="#a78bfa" stroke-opacity=".5"/>
+        <circle cx="330" cy="190" r="26" fill="url(#violet)"/>
+        <circle cx="330" cy="190" r="11" fill="#07030f" stroke="#a78bfa" stroke-opacity=".5"/>
+      </g>
+      <!-- jugador -->
+      <circle cx="215" cy="205" r="34" fill="url(#cyan)" opacity=".55"/>
+      <ellipse cx="208" cy="197" rx="5" ry="9" fill="#bffcff" opacity=".35" transform="rotate(-25 208 197)"/>
+      <ellipse cx="208" cy="213" rx="5" ry="9" fill="#bffcff" opacity=".35" transform="rotate(25 208 213)"/>
+      <circle cx="215" cy="205" r="5" fill="#fff"/>
+      <circle cx="210" cy="205" r="3" fill="#ffd166"/>
+      <!-- hud -->
+      <rect x="16" y="40" width="90" height="5" rx="2.5" fill="#0a1a26" stroke="#22414f"/>
+      <rect x="16" y="40" width="66" height="5" rx="2.5" fill="#7ef9ff"/>
+      <text x="116" y="45" font-size="7" fill="#6f8a9b">LUZ 74</text>
+      <text x="364" y="45" text-anchor="end" font-size="9" fill="#ffd166">1840</text>
+      <g fill="none" stroke="#ffd166" stroke-opacity=".7">
+        <circle cx="20" cy="330" r="4" fill="#ffd166" stroke="none"/>
+        <circle cx="34" cy="330" r="4"/>
+        <circle cx="48" cy="330" r="4"/>
+      </g>
+      <text x="62" y="333" font-size="7" letter-spacing="2" fill="#415a6b">FAROLES</text>
+    </g>
+
+    <!-- VIÑETA 3 -->
+    <g transform="translate(840 100)">
+      <rect width="380" height="360" rx="12" fill="#04070f" stroke="#1c3444"/>
+      <text x="16" y="26" font-size="10" letter-spacing="3" fill="#7ef9ff">03 · DESTELLO · ESQUIVA</text>
+      <path d="M0 300 Q 90 270 190 296 T 380 290 L380 360 L0 360 Z" fill="#061019"/>
+      <!-- estela -->
+      <line x1="96" y1="210" x2="200" y2="190" stroke="#7ef9ff" stroke-width="12" stroke-linecap="round" opacity=".22"/>
+      <line x1="120" y1="206" x2="200" y2="190" stroke="#bffcff" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+      <circle cx="212" cy="188" r="30" fill="url(#cyan)" opacity=".7"/>
+      <circle cx="212" cy="188" r="5" fill="#fff"/>
+      <!-- sombra disipada -->
+      <g opacity=".85">
+        <circle cx="290" cy="190" r="16" fill="#07030f" stroke="#a78bfa" stroke-opacity=".7"/>
+        <circle cx="270" cy="160" r="3" fill="#a78bfa"/>
+        <circle cx="312" cy="152" r="2.5" fill="#a78bfa"/>
+        <circle cx="322" cy="214" r="2" fill="#a78bfa"/>
+        <circle cx="262" cy="218" r="2.5" fill="#a78bfa"/>
+      </g>
+      <text x="300" y="240" font-size="10" fill="#a78bfa">+25</text>
+      <text x="212" y="250" font-size="8" letter-spacing="2" fill="#9dffcb">INVULNERABLE 0.4 s</text>
+      <text x="190" y="322" text-anchor="middle" font-size="8" letter-spacing="2" fill="#415a6b">ESPACIO · CUESTA 12 DE LUZ</text>
+    </g>
+
+    <!-- VIÑETA 4 -->
+    <g transform="translate(40 500)">
+      <rect width="380" height="360" rx="12" fill="#04070f" stroke="#1c3444"/>
+      <text x="16" y="26" font-size="10" letter-spacing="3" fill="#7ef9ff">04 · ENCENDER UN FAROL</text>
+      <path d="M0 300 Q 90 270 190 296 T 380 290 L380 360 L0 360 Z" fill="#061019"/>
+      <circle cx="190" cy="170" r="86" fill="url(#amber)" opacity=".35"/>
+      <circle cx="190" cy="170" r="52" fill="none" stroke="#ffd166" stroke-opacity=".5" stroke-width="2"/>
+      <circle cx="190" cy="170" r="78" fill="none" stroke="#ffd166" stroke-opacity=".25" stroke-width="1.5" stroke-dasharray="4 7"/>
+      <circle cx="190" cy="170" r="34" fill="url(#amber)" opacity=".75" filter="url(#blur)"/>
+      <circle cx="190" cy="170" r="12" fill="#fff4d6"/>
+      <circle cx="190" cy="170" r="5" fill="#fff"/>
+      <!-- poste -->
+      <line x1="190" y1="188" x2="190" y2="238" stroke="#ffd166" stroke-opacity=".6" stroke-width="2"/>
+      <line x1="176" y1="238" x2="204" y2="238" stroke="#ffd166" stroke-opacity=".6" stroke-width="2"/>
+      <text x="190" y="272" text-anchor="middle" font-size="9" letter-spacing="2" fill="#ffd166">FAROL 2 / 3</text>
+      <text x="190" y="300" text-anchor="middle" font-size="8" fill="#9fb4c2">ONDA DE LUZ · 300 px</text>
+      <text x="190" y="330" text-anchor="middle" font-size="8" letter-spacing="1" fill="#415a6b">COSTO 30 DE LUZ · +200 × NIVEL</text>
+    </g>
+
+    <!-- VIÑETA 5 -->
+    <g transform="translate(440 500)">
+      <rect width="380" height="360" rx="12" fill="#04070f" stroke="#1c3444"/>
+      <text x="16" y="26" font-size="10" letter-spacing="3" fill="#7ef9ff">05 · NIVEL SUPERADO</text>
+      <text x="190" y="86" text-anchor="middle" font-size="20" letter-spacing="3" fill="#e9fbff">EL JARDÍN RESPIRA</text>
+      <text x="190" y="110" text-anchor="middle" font-size="8" letter-spacing="3" fill="#9dffcb">NIVEL 1 · JARDÍN DE MUSGO</text>
+      <g font-size="9" fill="#9fb4c2">
+        <rect x="70" y="140" width="112" height="50" rx="8" fill="#070d17" stroke="#1c3444"/>
+        <text x="82" y="160" font-size="7" letter-spacing="2" fill="#415a6b">TIEMPO</text>
+        <text x="82" y="178" font-size="13" fill="#ffd166">42.6 s</text>
+        <rect x="198" y="140" width="112" height="50" rx="8" fill="#070d17" stroke="#1c3444"/>
+        <text x="210" y="160" font-size="7" letter-spacing="2" fill="#415a6b">BONUS</text>
+        <text x="210" y="178" font-size="13" fill="#ffd166">+310</text>
+        <rect x="70" y="200" width="112" height="50" rx="8" fill="#070d17" stroke="#1c3444"/>
+        <text x="82" y="220" font-size="7" letter-spacing="2" fill="#415a6b">LUZ RESTANTE</text>
+        <text x="82" y="238" font-size="13" fill="#ffd166">+136</text>
+        <rect x="198" y="200" width="112" height="50" rx="8" fill="#070d17" stroke="#1c3444"/>
+        <text x="210" y="220" font-size="7" letter-spacing="2" fill="#415a6b">PUNTAJE</text>
+        <text x="210" y="238" font-size="13" fill="#ffd166">3 480</text>
+      </g>
+      <rect x="120" y="282" width="140" height="30" rx="15" fill="#7ef9ff" opacity=".9"/>
+      <text x="190" y="302" text-anchor="middle" font-size="10" letter-spacing="2" fill="#02141b">SIGUIENTE NIVEL</text>
+    </g>
+
+    <!-- VIÑETA 6 -->
+    <g transform="translate(840 500)">
+      <rect width="380" height="360" rx="12" fill="url(#rose)" stroke="#5c2333"/>
+      <text x="16" y="26" font-size="10" letter-spacing="3" fill="#ff7b9c">06 · APAGÓN · GAME OVER</text>
+      <circle cx="190" cy="150" r="70" fill="url(#rose)" opacity=".9"/>
+      <circle cx="190" cy="150" r="34" fill="none" stroke="#ff7b9c" stroke-opacity=".35" stroke-dasharray="3 6"/>
+      <text x="190" y="158" text-anchor="middle" font-size="12" letter-spacing="3" fill="#ff7b9c">LUZ 0</text>
+      <text x="190" y="240" text-anchor="middle" font-size="16" letter-spacing="2" fill="#ffd9e2">TU LUZ SE APAGÓ</text>
+      <text x="190" y="264" text-anchor="middle" font-size="8" letter-spacing="2" fill="#b98a99">NIVEL 3 · 2 140 PUNTOS</text>
+      <rect x="78" y="290" width="106" height="30" rx="15" fill="none" stroke="#ff7b9c" stroke-opacity=".5"/>
+      <text x="131" y="310" text-anchor="middle" font-size="9" letter-spacing="2" fill="#ffd9e2">REINTENTAR</text>
+      <rect x="196" y="290" width="106" height="30" rx="15" fill="none" stroke="#3d2a33"/>
+      <text x="249" y="310" text-anchor="middle" font-size="9" letter-spacing="2" fill="#8c6f79">MENÚ</text>
+    </g>
+  </g>
+
+  <text x="40" y="884" font-family="ui-monospace, Menlo, monospace" font-size="10" letter-spacing="3" fill="#415a6b">LUMEN · STORYBOARD DE FLUJO · DIEGO ALEJANDRO FRANCO PARTIDA · MIT</text>
+</svg>
