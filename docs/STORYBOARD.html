@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storyboard · LUMEN</title>
+<meta name="description" content="Seis viñetas del flujo de juego, transiciones y principios de cámara.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --ink: #17212b;
+  --muted: #5a6b78;
+  --faint: #8496a3;
+  --accent: #0b6e7f;
+  --accent-soft: #e6f4f7;
+  --amber: #9a6b00;
+  --line: #d7e2e8;
+  --code-bg: #f4f7f9;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #eef1f4;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  background: rgba(9, 18, 26, 0.96);
+  border-bottom: 1px solid #1d2f3c;
+  backdrop-filter: blur(8px);
+}
+.doc-nav a {
+  color: #9fb4c2;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.doc-nav a:hover { color: #7ef9ff; border-color: rgba(126, 249, 255, 0.35); }
+.doc-nav a.active { color: #04121a; background: #7ef9ff; font-weight: 700; }
+.doc-nav a.back { color: #7ef9ff; margin-right: 8px; }
+
+.page {
+  max-width: 860px;
+  margin: 28px auto 60px;
+  padding: 52px 60px 64px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(15, 32, 45, 0.12);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mono);
+  line-height: 1.25;
+  color: #0d1a24;
+}
+h1 { font-size: 30px; letter-spacing: 0.02em; margin: 0 0 26px; }
+h2 {
+  font-size: 22px;
+  margin: 46px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 { font-size: 16.5px; margin: 30px 0 10px; color: var(--accent); }
+h4 { font-size: 14px; margin: 22px 0 8px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+p { margin: 0 0 14px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #064d59; }
+strong { color: #0d1a24; }
+em { color: var(--muted); }
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin: 4px 0; }
+li::marker { color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+  color: #24323d;
+}
+blockquote p:last-child { margin-bottom: 0; }
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #0a4f5c;
+}
+pre {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: #0d1a24;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #cfeefa;
+  font-size: 12.5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 22px;
+  font-size: 13.5px;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--accent-soft);
+  color: #0a4f5c;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) { background: #fafcfd; }
+img { max-width: 100%; height: auto; }
+p[align="center"] img { display: inline-block; }
+
+/* Portada */
+.cover {
+  text-align: center;
+  padding: 8px 0 32px;
+  border-bottom: 3px solid var(--accent-soft);
+  margin-bottom: 10px;
+}
+.cover-logo { width: 100%; max-width: 520px; border-radius: 8px; }
+.cover-kicker {
+  margin: 24px 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cover-title { margin: 0 0 6px; font-size: 26px; }
+.cover-project {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-meta {
+  width: auto;
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: left;
+}
+.cover-meta th {
+  width: 38%;
+  background: #f7fafb;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-foot {
+  margin: 22px 0 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+/* Evita duplicar el título cuando ya lo muestra la portada */
+.cover + .doc-body > h1:first-child { display: none; }
+
+/* Índice de documentos */
+.portfolio-intro { margin-bottom: 28px; }
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+}
+.doc-card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: #fbfdfe;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.doc-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 22px rgba(11, 110, 127, 0.12);
+  transform: translateY(-2px);
+}
+.doc-card strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-card span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.doc-card em {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--faint);
+}
+.badge-pdf {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #fdecec;
+  color: #a33;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+.foot-note {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* Impresión / PDF */
+@media print {
+  @page { size: A4; margin: 17mm 15mm 18mm; }
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+  .doc-nav { display: none !important; }
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h2 { page-break-after: avoid; break-after: avoid; margin-top: 26px; }
+  h3 { page-break-after: avoid; break-after: avoid; }
+  pre, img, blockquote { page-break-inside: avoid; break-inside: avoid; }
+  table { page-break-inside: auto; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; break-inside: avoid; }
+  pre { background: #f4f7f9; border: 1px solid var(--line); }
+  pre code { color: #17212b; font-size: 9pt; }
+  a { color: var(--accent); }
+  .cover { page-break-after: always; break-after: page; }
+  .doc-card { box-shadow: none; }
+}
+
+@media (max-width: 720px) {
+  .page { margin: 0; border-radius: 0; padding: 26px 20px 44px; box-shadow: none; }
+  .doc-nav { padding: 8px 10px; }
+  body { font-size: 15px; }
+  h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 7px; }
+}
+</style>
+</head>
+<body class="">
+<nav class="doc-nav" aria-label="Documentos"><a href="../index.html" class="back">← Jugar</a><a href="GDD.html">GDD</a><a href="REQUERIMIENTOS.html">Requerimientos</a><a href="STORYBOARD.html" class="active" aria-current="page">Storyboard</a><a href="GUION.html">Guión</a><a href="PLAN-DE-TRABAJO.html">Plan de trabajo</a><a href="VIDEO.html">Guión del video</a></nav>
+<main class="page">
+
+  <header class="cover">
+    <img class="cover-logo" src="../assets/splash.svg" alt="LUMEN — La última luciérnaga">
+    <p class="cover-kicker">Desarrollo de Videojuegos</p>
+    <h1 class="cover-title">Storyboard</h1>
+    <p class="cover-project">LUMEN — La última luciérnaga</p>
+    <table class="cover-meta">
+      <tr><th>Autor</th><td>Diego Alejandro Franco Partida</td></tr>
+      <tr><th>Correo</th><td>23311024@uthermosillo.edu.mx</td></tr>
+      <tr><th>Materia</th><td>Desarrollo de Videojuegos</td></tr>
+      <tr><th>Fecha</th><td>Noviembre de 2026</td></tr>
+      <tr><th>Repositorio</th><td><a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></td></tr>
+      <tr><th>Jugar en línea</th><td><a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a></td></tr>
+    </table>
+    <p class="cover-foot">Proyecto individual · Licencia MIT</p>
+  </header><article class="doc-body"><h1>Storyboard — LUMEN</h1>
+<blockquote>
+<p>Seis viñetas que resumen el flujo completo de una partida: menú, exploración, combate, objetivo, recompensa y derrota.</p>
+</blockquote>
+<p align="center">
+  <img src="../assets/storyboard.svg" alt="Storyboard de LUMEN en seis viñetas" width="100%">
+</p><hr>
+<h2>1. Menú principal</h2>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plano</strong></td>
+<td>Pantalla completa, fondo nocturno con luciérnagas de fondo</td>
+</tr>
+<tr>
+<td><strong>Acción</strong></td>
+<td>Lumen parpadea sobre el título; el jugador elige <strong>Jugar</strong>, <strong>Cómo jugar</strong> o <strong>Créditos</strong></td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>Título LUMEN, subtítulo, tres botones y récord local</td>
+</tr>
+<tr>
+<td><strong>Duración</strong></td>
+<td>Libre</td>
+</tr>
+<tr>
+<td><strong>Nota de dirección</strong></td>
+<td>La luz del título respira con la misma frecuencia que el aura del juego; la interfaz desaparece al empezar</td>
+</tr>
+</tbody></table>
+<h2>2. Exploración — Nivel 1</h2>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plano</strong></td>
+<td>Vista cenital fija, 960 × 600</td>
+</tr>
+<tr>
+<td><strong>Acción</strong></td>
+<td>Lumen se mueve entre chispas; dos sombras entran por los bordes; tres faroles esperan apagados</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>Nivel, barra de luz, puntaje, tres puntos de farol</td>
+</tr>
+<tr>
+<td><strong>Duración</strong></td>
+<td>40–90 s</td>
+</tr>
+<tr>
+<td><strong>Nota de dirección</strong></td>
+<td>La luz del jugador es la única fuente de iluminación real; el fondo se intuye, no se muestra</td>
+</tr>
+</tbody></table>
+<h2>3. Destello — esquiva y riesgo</h2>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plano</strong></td>
+<td>Detalle del jugador en movimiento</td>
+</tr>
+<tr>
+<td><strong>Acción</strong></td>
+<td>Lumen pulsa <strong>Espacio</strong> y cruza a una sombra; la sombra estalla en partículas violetas</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>Texto flotante «+25», estela de luz</td>
+</tr>
+<tr>
+<td><strong>Duración</strong></td>
+<td>0.16 s de impulso, 1.05 s de enfriamiento</td>
+</tr>
+<tr>
+<td><strong>Nota de dirección</strong></td>
+<td>La estela debe leerse como una decisión, no como un efecto gratuito: cuesta 12 de luz</td>
+</tr>
+</tbody></table>
+<h2>4. Encender un farol</h2>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plano</strong></td>
+<td>Farol en el centro, onda expansiva</td>
+</tr>
+<tr>
+<td><strong>Acción</strong></td>
+<td>Lumen llega con 30+ de luz; el farol se enciende y barre las sombras en 300 px</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>«FAROL 2 / 3», «+400», puntos de farol actualizados</td>
+</tr>
+<tr>
+<td><strong>Duración</strong></td>
+<td>0.75 s de onda</td>
+</tr>
+<tr>
+<td><strong>Nota de dirección</strong></td>
+<td>Es el momento más luminoso del nivel: flash ámbar, acorde mayor y sacudida suave</td>
+</tr>
+</tbody></table>
+<h2>5. Nivel superado</h2>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plano</strong></td>
+<td>Panel centrado sobre el mundo congelado</td>
+</tr>
+<tr>
+<td><strong>Acción</strong></td>
+<td>Se muestran tiempo, bonus de tiempo, luz restante y puntaje total</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>Botón <strong>Siguiente nivel</strong></td>
+</tr>
+<tr>
+<td><strong>Duración</strong></td>
+<td>Libre (el jugador decide)</td>
+</tr>
+<tr>
+<td><strong>Nota de dirección</strong></td>
+<td>La música se detiene; el silencio hace que el acorde de subida de nivel destaque</td>
+</tr>
+</tbody></table>
+<h2>6. Apagón — Game Over</h2>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plano</strong></td>
+<td>Pantalla teñida de rosa, el mundo se oscurece</td>
+</tr>
+<tr>
+<td><strong>Acción</strong></td>
+<td>La luz llega a 0; Lumen desaparece en partículas</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>Puntaje, récord, nivel alcanzado, <strong>Reintentar</strong> y <strong>Menú</strong></td>
+</tr>
+<tr>
+<td><strong>Duración</strong></td>
+<td>Libre</td>
+</tr>
+<tr>
+<td><strong>Nota de dirección</strong></td>
+<td>No hay castigo: el récord se conserva y el mensaje invita a volver</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Flujo de pantallas</h2>
+<pre><code class="language-text"> MENÚ ──▶ INTRO (3.2 s) ──▶ JUEGO ──┬──▶ NIVEL SUPERADO ──▶ INTRO (siguiente)
+   ▲                                 │
+   │                                 ├──▶ VICTORIA (nivel 5)
+   │                                 │
+   └────────────── PAUSA ◀───────────┴──▶ GAME OVER ──▶ REINTENTAR
+</code></pre>
+<h2>Transiciones</h2>
+<table>
+<thead>
+<tr>
+<th>De</th>
+<th>A</th>
+<th>Recurso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Menú</td>
+<td>Intro</td>
+<td>Fundido del overlay (0.28 s) + música del nivel</td>
+</tr>
+<tr>
+<td>Intro</td>
+<td>Juego</td>
+<td>Cuenta regresiva de 3.2 s o botón <strong>Empezar ya</strong></td>
+</tr>
+<tr>
+<td>Juego</td>
+<td>Pausa</td>
+<td>Overlay con blur; el mundo se congela</td>
+</tr>
+<tr>
+<td>Juego</td>
+<td>Nivel superado</td>
+<td>Flash ámbar, onda del último farol</td>
+</tr>
+<tr>
+<td>Juego</td>
+<td>Game Over</td>
+<td>Flash rosa, sacudida de 14 px, silencio musical</td>
+</tr>
+<tr>
+<td>Nivel superado</td>
+<td>Intro</td>
+<td>Fundido y nueva nota raíz</td>
+</tr>
+</tbody></table>
+<h2>Bocetos y principios de cámara</h2>
+<ul>
+<li><strong>Encuadre:</strong> siempre completo; nada importante queda fuera de pantalla.</li>
+<li><strong>Escala:</strong> Lumen mide 22 px de diámetro; un farol, 36 px; una sombra, 30 px. La proporción hace que el jugador se sienta pequeño.</li>
+<li><strong>Lectura:</strong> el 80 % de la pantalla es oscuridad; el 20 % restante es información.</li>
+<li><strong>Movimiento:</strong> la cámara no se mueve; la sensación de velocidad viene de la estela del jugador y del paralaje de las motas.</li>
+</ul>
+<h2>Relación con el GDD</h2>
+<p>Este storyboard corresponde a las secciones 3, 6, 10 y 11 del <a href="GDD.html">GDD</a>. Las posiciones de los faroles del nivel 1 están en el <a href="../assets/mapa-nivel-1.svg">mapa</a>.</p>
+</article>
+</main>
+</body>
+</html>

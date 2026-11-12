@@ -1,6 +1,6 @@
 # Plan de trabajo — LUMEN
 
-> Proyecto individual · v1.0.0 · Noviembre de 2026
+> Proyecto individual · v1.0.0 · Noviembre de 2026  
 > Autor: Diego Alejandro Franco Partida
 
 ---

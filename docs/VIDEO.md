@@ -1,7 +1,7 @@
 # Guion del video explicativo — LUMEN
 
-> **Duración objetivo:** 90 segundos (máximo 120)
-> **Formato:** captura de pantalla 1080p + voz en off
+> **Duración objetivo:** 90 segundos (máximo 120)  
+> **Formato:** captura de pantalla 1080p + voz en off  
 > **Objetivo:** explicar cómo está hecho el juego y mostrar su código sin perder de vista la experiencia.
 
 ---
@@ -156,8 +156,8 @@ if (d < player.r + s.r + 7) {
 **Descripción:**
 > LUMEN es un arcade minimalista hecho sin librerías: todo el arte se dibuja en Canvas 2D y toda la música se sintetiza con Web Audio API.
 >
-> 🎮 Juega: https://diegouth.github.io/lumen/
-> 💻 Código: https://github.com/diegouth/lumen
+> 🎮 Juega: https://diegouth.github.io/lumen/  
+> 💻 Código: https://github.com/diegouth/lumen  
 > 📄 GDD: https://github.com/diegouth/lumen/blob/main/docs/GDD.md
 >
 > Hecho por Diego Alejandro Franco Partida. Licencia MIT.

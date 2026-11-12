@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan de trabajo y flujo Git · LUMEN</title>
+<meta name="description" content="Cronograma, alcance MoSCoW, ramas, convenciones de commit, roles y control de calidad.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --ink: #17212b;
+  --muted: #5a6b78;
+  --faint: #8496a3;
+  --accent: #0b6e7f;
+  --accent-soft: #e6f4f7;
+  --amber: #9a6b00;
+  --line: #d7e2e8;
+  --code-bg: #f4f7f9;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #eef1f4;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  background: rgba(9, 18, 26, 0.96);
+  border-bottom: 1px solid #1d2f3c;
+  backdrop-filter: blur(8px);
+}
+.doc-nav a {
+  color: #9fb4c2;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.doc-nav a:hover { color: #7ef9ff; border-color: rgba(126, 249, 255, 0.35); }
+.doc-nav a.active { color: #04121a; background: #7ef9ff; font-weight: 700; }
+.doc-nav a.back { color: #7ef9ff; margin-right: 8px; }
+
+.page {
+  max-width: 860px;
+  margin: 28px auto 60px;
+  padding: 52px 60px 64px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(15, 32, 45, 0.12);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mono);
+  line-height: 1.25;
+  color: #0d1a24;
+}
+h1 { font-size: 30px; letter-spacing: 0.02em; margin: 0 0 26px; }
+h2 {
+  font-size: 22px;
+  margin: 46px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 { font-size: 16.5px; margin: 30px 0 10px; color: var(--accent); }
+h4 { font-size: 14px; margin: 22px 0 8px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+p { margin: 0 0 14px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #064d59; }
+strong { color: #0d1a24; }
+em { color: var(--muted); }
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin: 4px 0; }
+li::marker { color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+  color: #24323d;
+}
+blockquote p:last-child { margin-bottom: 0; }
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #0a4f5c;
+}
+pre {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: #0d1a24;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #cfeefa;
+  font-size: 12.5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 22px;
+  font-size: 13.5px;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--accent-soft);
+  color: #0a4f5c;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) { background: #fafcfd; }
+img { max-width: 100%; height: auto; }
+p[align="center"] img { display: inline-block; }
+
+/* Portada */
+.cover {
+  text-align: center;
+  padding: 8px 0 32px;
+  border-bottom: 3px solid var(--accent-soft);
+  margin-bottom: 10px;
+}
+.cover-logo { width: 100%; max-width: 520px; border-radius: 8px; }
+.cover-kicker {
+  margin: 24px 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cover-title { margin: 0 0 6px; font-size: 26px; }
+.cover-project {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-meta {
+  width: auto;
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: left;
+}
+.cover-meta th {
+  width: 38%;
+  background: #f7fafb;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-foot {
+  margin: 22px 0 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+/* Evita duplicar el título cuando ya lo muestra la portada */
+.cover + .doc-body > h1:first-child { display: none; }
+
+/* Índice de documentos */
+.portfolio-intro { margin-bottom: 28px; }
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+}
+.doc-card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: #fbfdfe;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.doc-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 22px rgba(11, 110, 127, 0.12);
+  transform: translateY(-2px);
+}
+.doc-card strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-card span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.doc-card em {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--faint);
+}
+.badge-pdf {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #fdecec;
+  color: #a33;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+.foot-note {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* Impresión / PDF */
+@media print {
+  @page { size: A4; margin: 17mm 15mm 18mm; }
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+  .doc-nav { display: none !important; }
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h2 { page-break-after: avoid; break-after: avoid; margin-top: 26px; }
+  h3 { page-break-after: avoid; break-after: avoid; }
+  pre, img, blockquote { page-break-inside: avoid; break-inside: avoid; }
+  table { page-break-inside: auto; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; break-inside: avoid; }
+  pre { background: #f4f7f9; border: 1px solid var(--line); }
+  pre code { color: #17212b; font-size: 9pt; }
+  a { color: var(--accent); }
+  .cover { page-break-after: always; break-after: page; }
+  .doc-card { box-shadow: none; }
+}
+
+@media (max-width: 720px) {
+  .page { margin: 0; border-radius: 0; padding: 26px 20px 44px; box-shadow: none; }
+  .doc-nav { padding: 8px 10px; }
+  body { font-size: 15px; }
+  h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 7px; }
+}
+</style>
+</head>
+<body class="">
+<nav class="doc-nav" aria-label="Documentos"><a href="../index.html" class="back">← Jugar</a><a href="GDD.html">GDD</a><a href="REQUERIMIENTOS.html">Requerimientos</a><a href="STORYBOARD.html">Storyboard</a><a href="GUION.html">Guión</a><a href="PLAN-DE-TRABAJO.html" class="active" aria-current="page">Plan de trabajo</a><a href="VIDEO.html">Guión del video</a></nav>
+<main class="page">
+
+  <header class="cover">
+    <img class="cover-logo" src="../assets/splash.svg" alt="LUMEN — La última luciérnaga">
+    <p class="cover-kicker">Desarrollo de Videojuegos</p>
+    <h1 class="cover-title">Plan de trabajo y flujo Git</h1>
+    <p class="cover-project">LUMEN — La última luciérnaga</p>
+    <table class="cover-meta">
+      <tr><th>Autor</th><td>Diego Alejandro Franco Partida</td></tr>
+      <tr><th>Correo</th><td>23311024@uthermosillo.edu.mx</td></tr>
+      <tr><th>Materia</th><td>Desarrollo de Videojuegos</td></tr>
+      <tr><th>Fecha</th><td>Noviembre de 2026</td></tr>
+      <tr><th>Repositorio</th><td><a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></td></tr>
+      <tr><th>Jugar en línea</th><td><a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a></td></tr>
+    </table>
+    <p class="cover-foot">Proyecto individual · Licencia MIT</p>
+  </header><article class="doc-body"><h1>Plan de trabajo — LUMEN</h1>
+<blockquote>
+<p>Proyecto individual · v1.0.0 · Noviembre de 2026<br>Autor: Diego Alejandro Franco Partida</p>
+</blockquote>
+<hr>
+<h2>1. Objetivo</h2>
+<p>Entregar un juego web indie básico, minimalista y jugable en línea, con código abierto, documentación de diseño y un video corto que explique su implementación, cumpliendo los entregables de la actividad <strong>Act 1 — Introducción y propuestas</strong>.</p>
+<hr>
+<h2>2. Metodología</h2>
+<p>Se usó un ciclo <strong>iterativo e incremental</strong> de una semana, con entregas pequeñas y verificables:</p>
+<pre><code class="language-text">Idea → Prototipo jugable → Prueba → Ajuste → Documentación → Publicación
+</code></pre>
+<ul>
+<li><strong>Gestión:</strong> tablero personal en GitHub Projects con columnas <em>Backlog</em>, <em>En curso</em>, <em>Hecho</em>.</li>
+<li><strong>Ritmo:</strong> bloques de 2–3 horas, con una revisión al final de cada bloque.</li>
+<li><strong>Regla de oro:</strong> si una función no se puede explicar en una frase, se recorta.</li>
+</ul>
+<hr>
+<h2>3. Alcance y prioridades (MoSCoW)</h2>
+<table>
+<thead>
+<tr>
+<th>Prioridad</th>
+<th>Elemento</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Must</strong></td>
+<td>Movimiento, luz, chispas, faroles, sombras, puntaje, game over</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Must</strong></td>
+<td>5 niveles, HUD, menú, pausa, récord local</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Must</strong></td>
+<td>Audio procedural y controles táctiles</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Must</strong></td>
+<td>README, GDD, storyboard, guion, requerimientos</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Should</strong></td>
+<td>Combo, destello, onda de farol, créditos, accesibilidad</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>Could</strong></td>
+<td>Modo infinito, skins, ranking local por nivel</td>
+<td>⏳ roadmap</td>
+</tr>
+<tr>
+<td><strong>Won&#39;t (v1)</strong></td>
+<td>Multijugador, servidor, editor de niveles</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>4. Cronograma</h2>
+<table>
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Hito</th>
+<th>Entregable</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>4 nov</strong></td>
+<td>Concepto y propuesta</td>
+<td>Pitch, referencias, definición del <em>core loop</em></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>5 nov</strong></td>
+<td>Prototipo de movimiento</td>
+<td>Lumen se mueve, colisiona y dibuja aura</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>6 nov</strong></td>
+<td>Luz y recolección</td>
+<td>Chispas, drenaje, barra de energía</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>7 nov</strong></td>
+<td>Objetivos y amenazas</td>
+<td>Faroles, sombras, niveles, puntaje</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>8 nov</strong></td>
+<td>Audio e interfaz</td>
+<td>Música generativa, SFX, menú, pausa, HUD</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>9 nov</strong></td>
+<td>Pruebas y balance</td>
+<td>Ajustes de dificultad, responsive, bugs</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>10 nov</strong></td>
+<td>Documentación</td>
+<td>README, GDD, storyboard, guion, requerimientos</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>11 nov</strong></td>
+<td>Video y despliegue</td>
+<td>Guion del video, grabación, GitHub Pages</td>
+<td>⏳</td>
+</tr>
+<tr>
+<td><strong>12 nov</strong></td>
+<td>Entrega</td>
+<td>Enlaces y evidencia</td>
+<td>⏳</td>
+</tr>
+</tbody></table>
+<h3>Distribución estimada del esfuerzo</h3>
+<table>
+<thead>
+<tr>
+<th>Actividad</th>
+<th>Horas</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Programación</td>
+<td>18</td>
+<td>45 %</td>
+</tr>
+<tr>
+<td>Diseño y balance</td>
+<td>5</td>
+<td>12 %</td>
+</tr>
+<tr>
+<td>Arte vectorial</td>
+<td>4</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>3</td>
+<td>8 %</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>7</td>
+<td>18 %</td>
+</tr>
+<tr>
+<td>Pruebas y publicación</td>
+<td>3</td>
+<td>7 %</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>40</strong></td>
+<td><strong>100 %</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>5. Flujo de trabajo con Git</h2>
+<h3>5.1 Ramas</h3>
+<table>
+<thead>
+<tr>
+<th>Rama</th>
+<th>Propósito</th>
+<th>Vida</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>main</code></td>
+<td>Versión estable y desplegable</td>
+<td>Permanente</td>
+</tr>
+<tr>
+<td><code>feat/*</code></td>
+<td>Nueva mecánica o pantalla</td>
+<td>Corta</td>
+</tr>
+<tr>
+<td><code>fix/*</code></td>
+<td>Corrección de errores</td>
+<td>Corta</td>
+</tr>
+<tr>
+<td><code>docs/*</code></td>
+<td>Documentación</td>
+<td>Corta</td>
+</tr>
+<tr>
+<td><code>style/*</code></td>
+<td>Ajustes visuales</td>
+<td>Corta</td>
+</tr>
+</tbody></table>
+<h3>5.2 Convención de commits</h3>
+<p>Se usa <strong>Conventional Commits</strong> en español o inglés, en imperativo y con alcance cuando aplica:</p>
+<pre><code class="language-text">&lt;tipo&gt;(&lt;alcance&gt;): &lt;descripción breve&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>feat</code></td>
+<td>Nueva funcionalidad</td>
+<td><code>feat(game): añade destello con costo de luz</code></td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>Corrección</td>
+<td><code>fix(audio): evita solapamiento de música entre niveles</code></td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>Documentación</td>
+<td><code>docs(gdd): agrega mapa del nivel 1</code></td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>Estilo sin lógica</td>
+<td><code>style(ui): ajusta contraste del HUD</code></td>
+</tr>
+<tr>
+<td><code>refactor</code></td>
+<td>Reestructuración</td>
+<td><code>refactor(game): separa actualización y render</code></td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>Pruebas</td>
+<td><code>test(qa): valida el flujo de cinco niveles</code></td>
+</tr>
+<tr>
+<td><code>chore</code></td>
+<td>Configuración</td>
+<td><code>chore(pages): agrega workflow de despliegue</code></td>
+</tr>
+</tbody></table>
+<h3>5.3 Secuencia planeada (historial del repositorio)</h3>
+<pre><code class="language-text">chore: inicia repositorio y estructura base
+feat(game): bucle principal y movimiento de Lumen
+feat(game): chispas, energía y recolección
+feat(level): faroles, sombras y progresión de cinco niveles
+feat(score): combo, bonus y récord en localStorage
+feat(audio): música generativa y efectos con Web Audio
+feat(ui): menú, HUD, pausa, créditos y paneles
+style(ui): tema nocturno, responsive y accesibilidad
+fix(game): evita muerte al encender el tercer farol
+docs: README, GDD, storyboard, guion y requerimientos
+chore(pages): workflow de despliegue estático
+test(qa): verificación automatizada de flujo completo
+docs(video): guion del video explicativo
+</code></pre>
+<h3>5.4 Comandos de referencia</h3>
+<pre><code class="language-bash"># Crear rama de trabajo
+git switch -c feat/mi-mecanica
+
+# Commits atómicos
+git add js/game.js
+git commit -m &quot;feat(game): añade onda de luz al encender un farol&quot;
+
+# Integrar a main
+git switch main
+git merge --no-ff feat/mi-mecanica
+
+# Etiquetar la entrega
+git tag -a v1.0.0 -m &quot;LUMEN v1.0.0&quot;
+git push origin main --tags
+</code></pre>
+<h3>5.5 Reglas</h3>
+<ol>
+<li><code>main</code> siempre debe poder jugarse.</li>
+<li>Un commit = un cambio lógico.</li>
+<li>No se suben archivos binarios pesados ni credenciales.</li>
+<li>Antes de fusionar: probar en Chrome y Firefox.</li>
+<li>La documentación se actualiza en el mismo PR que el cambio.</li>
+</ol>
+<hr>
+<h2>6. Control de calidad</h2>
+<h3>6.1 Checklist funcional</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> El menú carga y los tres botones responden.</li>
+<li><input checked="" disabled="" type="checkbox"> <code>Jugar</code> inicia el nivel 1 con 100 de luz.</li>
+<li><input checked="" disabled="" type="checkbox"> El movimiento funciona con WASD, flechas, ratón y táctil.</li>
+<li><input checked="" disabled="" type="checkbox"> El destello consume 12 de luz, tiene enfriamiento e invulnerabilidad.</li>
+<li><input checked="" disabled="" type="checkbox"> Las chispas suman 15 de luz y puntos con combo.</li>
+<li><input checked="" disabled="" type="checkbox"> El combo sube hasta ×9 y se reinicia con daño o 2.2 s sin recoger.</li>
+<li><input checked="" disabled="" type="checkbox"> Los faroles requieren 30 de luz, puntúan y barren sombras.</li>
+<li><input checked="" disabled="" type="checkbox"> Al encender el tercer farol se muestra el panel de nivel superado.</li>
+<li><input checked="" disabled="" type="checkbox"> El nivel 5 desemboca en la pantalla de victoria.</li>
+<li><input checked="" disabled="" type="checkbox"> La luz a 0 desemboca en game over.</li>
+<li><input checked="" disabled="" type="checkbox"> El récord se guarda y se muestra en el menú.</li>
+<li><input checked="" disabled="" type="checkbox"> Pausa, reanudar y reiniciar funcionan.</li>
+<li><input checked="" disabled="" type="checkbox"> El botón de sonido silencia y recuerda la preferencia.</li>
+<li><input checked="" disabled="" type="checkbox"> El juego se pausa al cambiar de pestaña.</li>
+</ul>
+<h3>6.2 Checklist visual</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Sin textos cortados en escritorio (1280 × 950).</li>
+<li><input checked="" disabled="" type="checkbox"> Paneles legibles en móvil vertical (390 × 844); contenido desplazable.</li>
+<li><input checked="" disabled="" type="checkbox"> HUD visible solo durante la partida.</li>
+<li><input checked="" disabled="" type="checkbox"> Contraste suficiente en títulos, estadísticas y botones.</li>
+<li><input checked="" disabled="" type="checkbox"> Partículas y destellos no saturan la pantalla.</li>
+<li><input checked="" disabled="" type="checkbox"> <code>prefers-reduced-motion</code> desactiva animaciones.</li>
+</ul>
+<h3>6.3 Checklist técnico</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Sin errores en consola (Chrome headless y Firefox).</li>
+<li><input checked="" disabled="" type="checkbox"> <code>node --check</code> sobre los tres archivos JavaScript.</li>
+<li><input checked="" disabled="" type="checkbox"> SVG válidos (parser XML).</li>
+<li><input checked="" disabled="" type="checkbox"> Rutas relativas para GitHub Pages.</li>
+<li><input checked="" disabled="" type="checkbox"> Sin dependencias externas ni peticiones de red.</li>
+<li><input checked="" disabled="" type="checkbox"> Funciona desde <code>file://</code> y desde servidor local.</li>
+<li><input checked="" disabled="" type="checkbox"> Código &lt; 150 KB y repositorio completo ≈ 1.1 MB con capturas incluidas.</li>
+</ul>
+<h3>6.4 Pruebas automatizadas realizadas</h3>
+<table>
+<thead>
+<tr>
+<th>Prueba</th>
+<th>Herramienta</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Carga del menú y paneles</td>
+<td>Playwright + Chromium</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Movimiento y consumo de luz</td>
+<td>Playwright</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Destello (costo, enfriamiento, desplazamiento)</td>
+<td>Playwright</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Pausa / reanudar / menú</td>
+<td>Playwright</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Nivel 1 completo y panel de nivel superado</td>
+<td>Playwright (autopiloto)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Flujo completo de 5 niveles y victoria</td>
+<td>Playwright + modo QA</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Game over y guardado de récord</td>
+<td>Playwright</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Capturas de documentación</td>
+<td>Playwright</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<h3>6.5 Compatibilidad probada</h3>
+<table>
+<thead>
+<tr>
+<th>Navegador</th>
+<th>Escritorio</th>
+<th>Móvil</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chrome / Chromium</td>
+<td>✅</td>
+<td>✅</td>
+<td>Referencia</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td>✅</td>
+<td>—</td>
+<td>Sin incidencias</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td>—</td>
+<td>—</td>
+<td>Esperado por estándares; pendiente de dispositivo físico</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>✅ (Chromium)</td>
+<td>—</td>
+<td>Equivalente a Chrome</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>7. Riesgos y mitigación</h2>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Prob.</th>
+<th>Impacto</th>
+<th>Mitigación aplicada</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bloqueo de audio por autoplay</td>
+<td>Alta</td>
+<td>Medio</td>
+<td>Audio se inicia con el primer gesto; botón de silencio</td>
+</tr>
+<tr>
+<td>Falta de tiempo para arte</td>
+<td>Media</td>
+<td>Alto</td>
+<td>Todo el arte es procedural o SVG propio</td>
+</tr>
+<tr>
+<td>Balance demasiado difícil</td>
+<td>Media</td>
+<td>Medio</td>
+<td>Drenaje configurable, chispas frecuentes, onda de farol</td>
+</tr>
+<tr>
+<td>Paneles cortados en móvil</td>
+<td>Media</td>
+<td>Bajo</td>
+<td><code>overflow-y: auto</code>, diseño compacto</td>
+</tr>
+<tr>
+<td>Pérdida de avances</td>
+<td>Baja</td>
+<td>Alto</td>
+<td>Git local + remoto + respaldo en nube</td>
+</tr>
+<tr>
+<td>Enlaces rotos en Pages</td>
+<td>Baja</td>
+<td>Medio</td>
+<td>Rutas relativas y verificación posterior al despliegue</td>
+</tr>
+<tr>
+<td>Récord corrupto en <code>localStorage</code></td>
+<td>Baja</td>
+<td>Bajo</td>
+<td>Lectura con <code>try/catch</code> y valor por defecto</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>8. Publicación</h2>
+<ol>
+<li>Crear el repositorio <code>lumen</code> en GitHub.</li>
+<li>Subir <code>main</code> con el workflow de Pages.</li>
+<li>Configurar <strong>Settings → Pages → Source: GitHub Actions</strong>.</li>
+<li>Verificar la URL <code>https://diegouth.github.io/lumen/</code>.</li>
+<li>Probar en una ventana de incógnito (sin caché).</li>
+<li>Actualizar el README con la URL final.</li>
+</ol>
+<h3>Criterios de aceptación de la entrega</h3>
+<ul>
+<li><input disabled="" type="checkbox"> El juego carga en GitHub Pages sin errores.</li>
+<li><input disabled="" type="checkbox"> Se puede completar el nivel 1 sin instrucciones externas.</li>
+<li><input disabled="" type="checkbox"> El README incluye propuesta, controles, puntaje y documentación.</li>
+<li><input disabled="" type="checkbox"> El GDD contiene todos los elementos solicitados.</li>
+<li><input disabled="" type="checkbox"> El video explica el código en menos de 2 minutos.</li>
+<li><input disabled="" type="checkbox"> La licencia y los créditos son visibles.</li>
+</ul>
+<hr>
+<h2>9. Roles (proyecto individual)</h2>
+<table>
+<thead>
+<tr>
+<th>Rol</th>
+<th>Responsabilidades</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Diseño de juego</td>
+<td>Core loop, economía de luz, niveles, balance</td>
+</tr>
+<tr>
+<td>Programación</td>
+<td>Canvas, entidades, estados, audio, persistencia</td>
+</tr>
+<tr>
+<td>Arte</td>
+<td>Splash, mapa, storyboard, paleta, UI</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>Síntesis de música y efectos</td>
+</tr>
+<tr>
+<td>QA</td>
+<td>Pruebas funcionales, visuales y de compatibilidad</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>README, GDD, guion, requerimientos, video</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>10. Lecciones aprendidas</h2>
+<ol>
+<li><strong>La restricción acelera.</strong> Eliminar assets externos redujo el alcance y mejoró la cohesión visual.</li>
+<li><strong>Una sola variable como recurso.</strong> Unir vida, puntaje y visibilidad en la luz simplificó el diseño y lo hizo más legible.</li>
+<li><strong>Probar con autopiloto.</strong> Jugar de forma automatizada reveló problemas de balance y de transición que la revisión manual no detectaba.</li>
+<li><strong>Documentar mientras se construye.</strong> El GDD se escribió con el código abierto; cada cambio de valor se reflejó en las tablas.</li>
+<li><strong>Publicar temprano.</strong> Tener Pages desde el primer día permitió detectar problemas de rutas y caché a tiempo.</li>
+</ol>
+<hr>
+<h2>11. Trabajo futuro</h2>
+<ul>
+<li>Modo infinito con dificultad creciente y tabla local por nivel.</li>
+<li>Paletas desbloqueables y logros.</li>
+<li>Pantalla de prólogo animada (guion ya escrito).</li>
+<li>Traducción al inglés.</li>
+<li>Soporte de gamepad y vibración en móvil.</li>
+<li>Animaciones cuadro por cuadro para Lumen (hoy es procedural).</li>
+</ul>
+<p align="center"><sub>Plan de trabajo · LUMEN · v1.0.0</sub></p>
+</article>
+</main>
+</body>
+</html>

@@ -284,14 +284,16 @@ git push -u origin main
 
 ## Documentación del proyecto
 
-| Documento | Contenido |
-| --- | --- |
-| [GDD](docs/GDD.md) | Concepto, historia, personajes, niveles, armas, vestimenta, props, música, SFX, score y créditos. |
-| [Storyboard](docs/STORYBOARD.md) | Seis viñetas del flujo de juego, con bocetos y notas. |
-| [Guión](docs/GUION.md) | Textos de introducción, diálogos del farolero, finales y tono narrativo. |
-| [Requerimientos](docs/REQUERIMIENTOS.md) | Hardware y herramientas de software para desarrollo de videojuegos y animación. |
-| [Plan de trabajo](docs/PLAN-DE-TRABAJO.md) | Cronograma, flujo Git, ramas, convenciones de commit y checklist de pruebas. |
-| [Guión del video](docs/VIDEO.md) | Guion de 90 segundos para el video explicativo del código. |
+> **Portafolio navegable:** <https://diegouth.github.io/lumen/docs/> — todos los documentos en HTML, con su versión en **PDF** descargable.
+
+| Documento | Contenido | En línea | PDF |
+| --- | --- | --- | --- |
+| [GDD](docs/GDD.md) | Concepto, historia, mecánicas, personajes, niveles, armas, vestimenta, props, música, SFX, score y créditos. | [HTML](https://diegouth.github.io/lumen/docs/GDD.html) | [PDF](docs/pdf/GDD.pdf) |
+| [Storyboard](docs/STORYBOARD.md) | Seis viñetas del flujo de juego, con bocetos y notas. | [HTML](https://diegouth.github.io/lumen/docs/STORYBOARD.html) | [PDF](docs/pdf/Storyboard.pdf) |
+| [Guión](docs/GUION.md) | Textos de introducción, diálogos del farolero, finales y tono narrativo. | [HTML](https://diegouth.github.io/lumen/docs/GUION.html) | [PDF](docs/pdf/Guion.pdf) |
+| [Requerimientos](docs/REQUERIMIENTOS.md) | Hardware y herramientas de software para desarrollo de videojuegos y animación. | [HTML](https://diegouth.github.io/lumen/docs/REQUERIMIENTOS.html) | [PDF](docs/pdf/Requerimientos.pdf) |
+| [Plan de trabajo](docs/PLAN-DE-TRABAJO.md) | Cronograma, flujo Git, ramas, convenciones de commit y checklist de pruebas. | [HTML](https://diegouth.github.io/lumen/docs/PLAN-DE-TRABAJO.html) | [PDF](docs/pdf/Plan-de-trabajo.pdf) |
+| [Guión del video](docs/VIDEO.md) | Guion de 90 segundos para el video explicativo del código. | [HTML](https://diegouth.github.io/lumen/docs/VIDEO.html) | [PDF](docs/pdf/Guion-del-video.pdf) |
 
 ---
 
@@ -305,15 +307,16 @@ git push -u origin main
 | Código completo desarrollado y liberado | `js/`, `css/`, `index.html` + [LICENSE](LICENSE) MIT |
 | Audio sencillo y efectos | `js/audio.js` + sección de audio del [GDD](docs/GDD.md) |
 | Video corto explicativo del código | Guion en [`docs/VIDEO.md`](docs/VIDEO.md) (pendiente de grabación) |
-| Documento técnico de hardware y software | [`docs/REQUERIMIENTOS.md`](docs/REQUERIMIENTOS.md) |
+| Documento técnico de hardware y software | [`docs/REQUERIMIENTOS.md`](docs/REQUERIMIENTOS.md) · [HTML](https://diegouth.github.io/lumen/docs/REQUERIMIENTOS.html) · [PDF](docs/pdf/Requerimientos.pdf) |
 | GDD con portada, integrantes, nombre e imagen | [`docs/GDD.md`](docs/GDD.md) + `assets/splash.svg` |
-| Género, público, historia, personajes, niveles, armas, vestimenta, props | Secciones 3–10 del [GDD](docs/GDD.md) |
-| Mapa de al menos un nivel | [`assets/mapa-nivel-1.svg`](assets/mapa-nivel-1.svg) |
+| Género, público, historia, mecánicas, personajes, niveles, armas, vestimenta, props | Secciones 3–10 del [GDD](docs/GDD.md) |
+| Mapa de al menos un nivel | [`assets/mapa-nivel-1.svg`](assets/mapa-nivel-1.svg) + sección 6.1 del GDD |
 | Storyboard y guión | [`docs/STORYBOARD.md`](docs/STORYBOARD.md) y [`docs/GUION.md`](docs/GUION.md) |
 | Música por niveles y efectos de audio | Secciones 12–13 del [GDD](docs/GDD.md) |
 | Score sobre eventos | [Reglas y puntaje](#reglas-y-cálculo-del-puntaje) y sección 11 del GDD |
 | Plan de trabajo y flujo Git | [`docs/PLAN-DE-TRABAJO.md`](docs/PLAN-DE-TRABAJO.md) |
 | Créditos | [Créditos](#créditos-y-licencia) + pantalla de créditos del juego |
+| Portafolio de evidencias navegable | <https://diegouth.github.io/lumen/docs/> |
 
 ---
 

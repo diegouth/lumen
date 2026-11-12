@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guión del video explicativo · LUMEN</title>
+<meta name="description" content="Guion segundo a segundo del video de 90 segundos sobre el código.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --ink: #17212b;
+  --muted: #5a6b78;
+  --faint: #8496a3;
+  --accent: #0b6e7f;
+  --accent-soft: #e6f4f7;
+  --amber: #9a6b00;
+  --line: #d7e2e8;
+  --code-bg: #f4f7f9;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #eef1f4;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  background: rgba(9, 18, 26, 0.96);
+  border-bottom: 1px solid #1d2f3c;
+  backdrop-filter: blur(8px);
+}
+.doc-nav a {
+  color: #9fb4c2;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.doc-nav a:hover { color: #7ef9ff; border-color: rgba(126, 249, 255, 0.35); }
+.doc-nav a.active { color: #04121a; background: #7ef9ff; font-weight: 700; }
+.doc-nav a.back { color: #7ef9ff; margin-right: 8px; }
+
+.page {
+  max-width: 860px;
+  margin: 28px auto 60px;
+  padding: 52px 60px 64px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(15, 32, 45, 0.12);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mono);
+  line-height: 1.25;
+  color: #0d1a24;
+}
+h1 { font-size: 30px; letter-spacing: 0.02em; margin: 0 0 26px; }
+h2 {
+  font-size: 22px;
+  margin: 46px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 { font-size: 16.5px; margin: 30px 0 10px; color: var(--accent); }
+h4 { font-size: 14px; margin: 22px 0 8px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+p { margin: 0 0 14px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #064d59; }
+strong { color: #0d1a24; }
+em { color: var(--muted); }
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin: 4px 0; }
+li::marker { color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+  color: #24323d;
+}
+blockquote p:last-child { margin-bottom: 0; }
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #0a4f5c;
+}
+pre {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: #0d1a24;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #cfeefa;
+  font-size: 12.5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 22px;
+  font-size: 13.5px;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--accent-soft);
+  color: #0a4f5c;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) { background: #fafcfd; }
+img { max-width: 100%; height: auto; }
+p[align="center"] img { display: inline-block; }
+
+/* Portada */
+.cover {
+  text-align: center;
+  padding: 8px 0 32px;
+  border-bottom: 3px solid var(--accent-soft);
+  margin-bottom: 10px;
+}
+.cover-logo { width: 100%; max-width: 520px; border-radius: 8px; }
+.cover-kicker {
+  margin: 24px 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cover-title { margin: 0 0 6px; font-size: 26px; }
+.cover-project {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-meta {
+  width: auto;
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: left;
+}
+.cover-meta th {
+  width: 38%;
+  background: #f7fafb;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-foot {
+  margin: 22px 0 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+/* Evita duplicar el título cuando ya lo muestra la portada */
+.cover + .doc-body > h1:first-child { display: none; }
+
+/* Índice de documentos */
+.portfolio-intro { margin-bottom: 28px; }
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+}
+.doc-card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: #fbfdfe;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.doc-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 22px rgba(11, 110, 127, 0.12);
+  transform: translateY(-2px);
+}
+.doc-card strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-card span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.doc-card em {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--faint);
+}
+.badge-pdf {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #fdecec;
+  color: #a33;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+.foot-note {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* Impresión / PDF */
+@media print {
+  @page { size: A4; margin: 17mm 15mm 18mm; }
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+  .doc-nav { display: none !important; }
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h2 { page-break-after: avoid; break-after: avoid; margin-top: 26px; }
+  h3 { page-break-after: avoid; break-after: avoid; }
+  pre, img, blockquote { page-break-inside: avoid; break-inside: avoid; }
+  table { page-break-inside: auto; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; break-inside: avoid; }
+  pre { background: #f4f7f9; border: 1px solid var(--line); }
+  pre code { color: #17212b; font-size: 9pt; }
+  a { color: var(--accent); }
+  .cover { page-break-after: always; break-after: page; }
+  .doc-card { box-shadow: none; }
+}
+
+@media (max-width: 720px) {
+  .page { margin: 0; border-radius: 0; padding: 26px 20px 44px; box-shadow: none; }
+  .doc-nav { padding: 8px 10px; }
+  body { font-size: 15px; }
+  h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 7px; }
+}
+</style>
+</head>
+<body class="">
+<nav class="doc-nav" aria-label="Documentos"><a href="../index.html" class="back">← Jugar</a><a href="GDD.html">GDD</a><a href="REQUERIMIENTOS.html">Requerimientos</a><a href="STORYBOARD.html">Storyboard</a><a href="GUION.html">Guión</a><a href="PLAN-DE-TRABAJO.html">Plan de trabajo</a><a href="VIDEO.html" class="active" aria-current="page">Guión del video</a></nav>
+<main class="page">
+
+  <header class="cover">
+    <img class="cover-logo" src="../assets/splash.svg" alt="LUMEN — La última luciérnaga">
+    <p class="cover-kicker">Desarrollo de Videojuegos</p>
+    <h1 class="cover-title">Guión del video explicativo</h1>
+    <p class="cover-project">LUMEN — La última luciérnaga</p>
+    <table class="cover-meta">
+      <tr><th>Autor</th><td>Diego Alejandro Franco Partida</td></tr>
+      <tr><th>Correo</th><td>23311024@uthermosillo.edu.mx</td></tr>
+      <tr><th>Materia</th><td>Desarrollo de Videojuegos</td></tr>
+      <tr><th>Fecha</th><td>Noviembre de 2026</td></tr>
+      <tr><th>Repositorio</th><td><a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></td></tr>
+      <tr><th>Jugar en línea</th><td><a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a></td></tr>
+    </table>
+    <p class="cover-foot">Proyecto individual · Licencia MIT</p>
+  </header><article class="doc-body"><h1>Guion del video explicativo — LUMEN</h1>
+<blockquote>
+<p><strong>Duración objetivo:</strong> 90 segundos (máximo 120)<br><strong>Formato:</strong> captura de pantalla 1080p + voz en off<br><strong>Objetivo:</strong> explicar cómo está hecho el juego y mostrar su código sin perder de vista la experiencia.</p>
+</blockquote>
+<hr>
+<h2>1. Preparación</h2>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Resolución</td>
+<td>1920 × 1080, 30 o 60 fps</td>
+</tr>
+<tr>
+<td>Herramienta</td>
+<td>OBS Studio (ventana del navegador + micrófono)</td>
+</tr>
+<tr>
+<td>Navegador</td>
+<td>Ventana limpia, sin extensiones ni notificaciones</td>
+</tr>
+<tr>
+<td>Pestañas abiertas</td>
+<td>Pestaña 1: juego en <code>localhost:8765</code>; pestaña 2: VS Code con <code>js/game.js</code></td>
+</tr>
+<tr>
+<td>Zoom del editor</td>
+<td>120–140 % para que el código se lea</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>Micrófono a 20 cm, cuarto silencioso, −16 LUFS</td>
+</tr>
+<tr>
+<td>Duración</td>
+<td>90 s de video + 5 s de cierre</td>
+</tr>
+</tbody></table>
+<p><strong>Consejo:</strong> graba primero la voz y luego ajusta las imágenes, o hazlo en una sola toma si dominas el guion. No leas literalmente: usa el guion como guía.</p>
+<hr>
+<h2>2. Guion segundo a segundo</h2>
+<h3>0:00 – 0:08 · Gancho</h3>
+<p><strong>Imagen:</strong> el juego en movimiento, nivel 2, Lumen esquivando una sombra y encendiendo un farol.</p>
+<p><strong>Voz en off:</strong></p>
+<blockquote>
+<p>«Este es LUMEN: un juego web hecho con JavaScript puro, sin librerías, sin imágenes y sin archivos de audio. Todo lo que ves y escuchas se genera en el navegador.»</p>
+</blockquote>
+<p><strong>Texto en pantalla:</strong> <code>LUMEN · JavaScript puro · 0 dependencias</code></p>
+<hr>
+<h3>0:08 – 0:20 · La idea</h3>
+<p><strong>Imagen:</strong> menú principal; luego una partida nueva, primer plano del HUD y de la barra de luz.</p>
+<p><strong>Voz en off:</strong></p>
+<blockquote>
+<p>«Eres la última luciérnaga de un jardín sin luz. Tu energía baja sola. Recoges chispas para mantenerte viva y enciendes tres faroles por nivel. Si tu luz llega a cero, se acabó.»</p>
+</blockquote>
+<p><strong>Texto en pantalla:</strong> <code>5 niveles · 15 faroles · 1 recurso: la luz</code></p>
+<hr>
+<h3>0:20 – 0:35 · El bucle del juego</h3>
+<p><strong>Imagen:</strong> partida real; se resalta con un círculo la barra de luz, las chispas y un farol. Corte a la pantalla de nivel superado.</p>
+<p><strong>Voz en off:</strong></p>
+<blockquote>
+<p>«El bucle es simple: explorar, recoger, encender. Cada chispa suma quince de luz y puntos según el combo. Encender un farol cuesta treinta y barre las sombras cercanas. El nivel termina cuando los tres faroles están encendidos.»</p>
+</blockquote>
+<p><strong>Texto en pantalla:</strong> <code>chispa +15 · farol −30 · 3 faroles = nivel</code></p>
+<hr>
+<h3>0:35 – 0:50 · El código: el bucle principal</h3>
+<p><strong>Imagen:</strong> VS Code, <code>js/game.js</code>, función <code>frame</code> y <code>update</code>.</p>
+<p><strong>Voz en off:</strong></p>
+<blockquote>
+<p>«El corazón del juego son unas veinte líneas. <code>requestAnimationFrame</code> llama a <code>frame</code>, que calcula un delta time limitado a cincuenta milisegundos para que nada se rompa si la pestaña se ralentiza. Después actualiza, dibuja y vuelve a pedir el siguiente cuadro.»</p>
+</blockquote>
+<p><strong>Texto en pantalla:</strong> <code>requestAnimationFrame · dt limitado · update + render</code></p>
+<p><strong>Código a mostrar:</strong></p>
+<pre><code class="language-js">function frame(ts) {
+  let dt = (ts - lastFrame) / 1000;
+  lastFrame = ts;
+  dt = Math.min(dt, 0.05);
+  if (!frozen &amp;&amp; mode !== &#39;paused&#39;) update(dt);
+  render();
+  requestAnimationFrame(frame);
+}
+</code></pre>
+<hr>
+<h3>0:50 – 1:05 · El código: entidades y colisiones</h3>
+<p><strong>Imagen:</strong> VS Code, <code>updateSparks</code>, <code>updateShadows</code> y la comprobación de distancia.</p>
+<p><strong>Voz en off:</strong></p>
+<blockquote>
+<p>«No hay motor físico. Las chispas, las sombras y los faroles son objetos en arreglos. La colisión es un cálculo de distancia entre dos círculos. Si la distancia es menor que la suma de los radios, pasó algo: recogiste una chispa, te golpeó una sombra o encendiste un farol.»</p>
+</blockquote>
+<p><strong>Texto en pantalla:</strong> <code>colisión círculo–círculo · sin motor físico</code></p>
+<p><strong>Código a mostrar:</strong></p>
+<pre><code class="language-js">const d = Math.hypot(player.x - s.x, player.y - s.y);
+if (d &lt; player.r + s.r + 7) {
+  sparks.splice(i, 1);
+  collectSpark(s);
+}
+</code></pre>
+<hr>
+<h3>1:05 – 1:20 · El código: audio procedural</h3>
+<p><strong>Imagen:</strong> VS Code, <code>js/audio.js</code>, <code>toneAt</code> y <code>startMusic</code>; de fondo, la música del nivel 5.</p>
+<p><strong>Voz en off:</strong></p>
+<blockquote>
+<p>«La música también es código. Un planificador programa notas de una escala pentatónica con anticipación, y cada nivel cambia la nota raíz. Los efectos son osciladores y ruido filtrado con envolventes de unos pocos milisegundos.»</p>
+</blockquote>
+<p><strong>Texto en pantalla:</strong> <code>Web Audio API · osciladores + ruido · música generativa</code></p>
+<hr>
+<h3>1:20 – 1:30 · Cierre</h3>
+<p><strong>Imagen:</strong> pantalla de victoria; luego el repositorio en GitHub y la URL de Pages.</p>
+<p><strong>Voz en off:</strong></p>
+<blockquote>
+<p>«Todo el código, el diseño y el arte están liberados con licencia MIT. Se juega en línea y el repositorio incluye el GDD completo. Gracias por jugar.»</p>
+</blockquote>
+<p><strong>Texto en pantalla:</strong> <code>github.com/diegouth/lumen · diegouth.github.io/lumen · MIT</code></p>
+<hr>
+<h2>3. Tomas de apoyo (B-roll)</h2>
+<table>
+<thead>
+<tr>
+<th>Tomas</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Menú con el título respirando</td>
+<td>Introducción</td>
+</tr>
+<tr>
+<td>Destello atravesando una sombra</td>
+<td>Momento de acción</td>
+</tr>
+<tr>
+<td>Farol encendiéndose en cámara lenta (0.5×)</td>
+<td>Transición</td>
+</tr>
+<tr>
+<td>Panel de nivel superado</td>
+<td>Recompensa</td>
+</tr>
+<tr>
+<td>Game over</td>
+<td>Riesgo</td>
+</tr>
+<tr>
+<td>Repositorio y README en GitHub</td>
+<td>Cierre</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>4. Consejos de grabación</h2>
+<ol>
+<li>Graba el gameplay a 60 fps y la voz por separado; sincroniza al editar.</li>
+<li>No muestres más de 12 líneas de código por toma.</li>
+<li>Usa un resaltado de sintaxis oscuro y tamaño de fuente grande.</li>
+<li>Evita música de fondo durante la explicación; deja respirar el audio del juego.</li>
+<li>Incluye subtítulos en español (YouTube los genera, pero revísalos).</li>
+<li>Cierra con la URL visible al menos 4 segundos.</li>
+</ol>
+<hr>
+<h2>5. Metadatos para YouTube</h2>
+<p><strong>Título:</strong></p>
+<blockquote>
+<p>LUMEN — cómo hice un juego web con JavaScript puro (Canvas + Web Audio)</p>
+</blockquote>
+<p><strong>Descripción:</strong></p>
+<blockquote>
+<p>LUMEN es un arcade minimalista hecho sin librerías: todo el arte se dibuja en Canvas 2D y toda la música se sintetiza con Web Audio API.</p>
+<p>🎮 Juega: <a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a><br>💻 Código: <a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a><br>📄 GDD: <a href="https://github.com/diegouth/lumen/blob/main/docs/GDD.html">https://github.com/diegouth/lumen/blob/main/docs/GDD.md</a></p>
+<p>Hecho por Diego Alejandro Franco Partida. Licencia MIT.</p>
+<p>#JavaScript #GameDev #Canvas #WebAudio #IndieGame</p>
+</blockquote>
+<p><strong>Etiquetas:</strong> <code>javascript</code>, <code>canvas</code>, <code>web audio</code>, <code>juego web</code>, <code>indie</code>, <code>game dev</code>, <code>html5</code>, <code>tutorial</code>.</p>
+<hr>
+<h2>6. Lista de verificación antes de publicar</h2>
+<ul>
+<li><input disabled="" type="checkbox"> El video dura entre 90 y 120 segundos.</li>
+<li><input disabled="" type="checkbox"> Se entiende el juego sin haberlo jugado.</li>
+<li><input disabled="" type="checkbox"> Se muestra al menos un fragmento real de código.</li>
+<li><input disabled="" type="checkbox"> Se explica el bucle, las colisiones y el audio.</li>
+<li><input disabled="" type="checkbox"> La URL de Pages aparece en pantalla y en la descripción.</li>
+<li><input disabled="" type="checkbox"> El audio de la voz es claro y sin clipping.</li>
+<li><input disabled="" type="checkbox"> El video no muestra datos personales, notificaciones ni rutas privadas.</li>
+<li><input disabled="" type="checkbox"> Se adjunta el enlace en el README o en la entrega.</li>
+</ul>
+<p align="center"><sub>Guión del video · LUMEN · v1.0.0</sub></p>
+</article>
+</main>
+</body>
+</html>

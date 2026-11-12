@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documento técnico de requerimientos · LUMEN</title>
+<meta name="description" content="Hardware y herramientas de software para el desarrollo de videojuegos y de animación.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --ink: #17212b;
+  --muted: #5a6b78;
+  --faint: #8496a3;
+  --accent: #0b6e7f;
+  --accent-soft: #e6f4f7;
+  --amber: #9a6b00;
+  --line: #d7e2e8;
+  --code-bg: #f4f7f9;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #eef1f4;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  background: rgba(9, 18, 26, 0.96);
+  border-bottom: 1px solid #1d2f3c;
+  backdrop-filter: blur(8px);
+}
+.doc-nav a {
+  color: #9fb4c2;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.doc-nav a:hover { color: #7ef9ff; border-color: rgba(126, 249, 255, 0.35); }
+.doc-nav a.active { color: #04121a; background: #7ef9ff; font-weight: 700; }
+.doc-nav a.back { color: #7ef9ff; margin-right: 8px; }
+
+.page {
+  max-width: 860px;
+  margin: 28px auto 60px;
+  padding: 52px 60px 64px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(15, 32, 45, 0.12);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mono);
+  line-height: 1.25;
+  color: #0d1a24;
+}
+h1 { font-size: 30px; letter-spacing: 0.02em; margin: 0 0 26px; }
+h2 {
+  font-size: 22px;
+  margin: 46px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 { font-size: 16.5px; margin: 30px 0 10px; color: var(--accent); }
+h4 { font-size: 14px; margin: 22px 0 8px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+p { margin: 0 0 14px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #064d59; }
+strong { color: #0d1a24; }
+em { color: var(--muted); }
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin: 4px 0; }
+li::marker { color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+  color: #24323d;
+}
+blockquote p:last-child { margin-bottom: 0; }
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #0a4f5c;
+}
+pre {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: #0d1a24;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #cfeefa;
+  font-size: 12.5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 22px;
+  font-size: 13.5px;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--accent-soft);
+  color: #0a4f5c;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) { background: #fafcfd; }
+img { max-width: 100%; height: auto; }
+p[align="center"] img { display: inline-block; }
+
+/* Portada */
+.cover {
+  text-align: center;
+  padding: 8px 0 32px;
+  border-bottom: 3px solid var(--accent-soft);
+  margin-bottom: 10px;
+}
+.cover-logo { width: 100%; max-width: 520px; border-radius: 8px; }
+.cover-kicker {
+  margin: 24px 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cover-title { margin: 0 0 6px; font-size: 26px; }
+.cover-project {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-meta {
+  width: auto;
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: left;
+}
+.cover-meta th {
+  width: 38%;
+  background: #f7fafb;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-foot {
+  margin: 22px 0 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+/* Evita duplicar el título cuando ya lo muestra la portada */
+.cover + .doc-body > h1:first-child { display: none; }
+
+/* Índice de documentos */
+.portfolio-intro { margin-bottom: 28px; }
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+}
+.doc-card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: #fbfdfe;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.doc-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 22px rgba(11, 110, 127, 0.12);
+  transform: translateY(-2px);
+}
+.doc-card strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-card span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.doc-card em {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--faint);
+}
+.badge-pdf {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #fdecec;
+  color: #a33;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+.foot-note {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* Impresión / PDF */
+@media print {
+  @page { size: A4; margin: 17mm 15mm 18mm; }
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+  .doc-nav { display: none !important; }
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h2 { page-break-after: avoid; break-after: avoid; margin-top: 26px; }
+  h3 { page-break-after: avoid; break-after: avoid; }
+  pre, img, blockquote { page-break-inside: avoid; break-inside: avoid; }
+  table { page-break-inside: auto; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; break-inside: avoid; }
+  pre { background: #f4f7f9; border: 1px solid var(--line); }
+  pre code { color: #17212b; font-size: 9pt; }
+  a { color: var(--accent); }
+  .cover { page-break-after: always; break-after: page; }
+  .doc-card { box-shadow: none; }
+}
+
+@media (max-width: 720px) {
+  .page { margin: 0; border-radius: 0; padding: 26px 20px 44px; box-shadow: none; }
+  .doc-nav { padding: 8px 10px; }
+  body { font-size: 15px; }
+  h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 7px; }
+}
+</style>
+</head>
+<body class="">
+<nav class="doc-nav" aria-label="Documentos"><a href="../index.html" class="back">← Jugar</a><a href="GDD.html">GDD</a><a href="REQUERIMIENTOS.html" class="active" aria-current="page">Requerimientos</a><a href="STORYBOARD.html">Storyboard</a><a href="GUION.html">Guión</a><a href="PLAN-DE-TRABAJO.html">Plan de trabajo</a><a href="VIDEO.html">Guión del video</a></nav>
+<main class="page">
+
+  <header class="cover">
+    <img class="cover-logo" src="../assets/splash.svg" alt="LUMEN — La última luciérnaga">
+    <p class="cover-kicker">Desarrollo de Videojuegos</p>
+    <h1 class="cover-title">Documento técnico de requerimientos</h1>
+    <p class="cover-project">LUMEN — La última luciérnaga</p>
+    <table class="cover-meta">
+      <tr><th>Autor</th><td>Diego Alejandro Franco Partida</td></tr>
+      <tr><th>Correo</th><td>23311024@uthermosillo.edu.mx</td></tr>
+      <tr><th>Materia</th><td>Desarrollo de Videojuegos</td></tr>
+      <tr><th>Fecha</th><td>Noviembre de 2026</td></tr>
+      <tr><th>Repositorio</th><td><a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></td></tr>
+      <tr><th>Jugar en línea</th><td><a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a></td></tr>
+    </table>
+    <p class="cover-foot">Proyecto individual · Licencia MIT</p>
+  </header><article class="doc-body"><h1>Documento técnico — Requerimientos de hardware y software</h1>
+<blockquote>
+<p>Proyecto: <strong>LUMEN — La última luciérnaga</strong> · Desarrollo de videojuegos y animación 2D<br>Autor: Diego Alejandro Franco Partida · v1.0.0 · Noviembre de 2026</p>
+</blockquote>
+<hr>
+<h2>1. Objetivo</h2>
+<p>Definir los requerimientos mínimos y recomendados —de hardware, software, formatos y red— para <strong>desarrollar, probar y publicar</strong> un videojuego web 2D y su contenido de animación, usando como caso práctico LUMEN. El documento distingue entre el equipo necesario para <strong>jugar</strong> y el necesario para <strong>producir</strong>.</p>
+<hr>
+<h2>2. Resumen ejecutivo</h2>
+<table>
+<thead>
+<tr>
+<th>Perfil</th>
+<th>Hardware mínimo</th>
+<th>Hardware recomendado</th>
+<th>Software esencial</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Jugador</strong></td>
+<td>Navegador moderno, 2 GB RAM, cualquier CPU de los últimos 10 años</td>
+<td>4 GB RAM, pantalla 1080p</td>
+<td>Navegador actualizado</td>
+</tr>
+<tr>
+<td><strong>Desarrollador web/JS</strong></td>
+<td>4 núcleos, 8 GB RAM, SSD 128 GB</td>
+<td>6–8 núcleos, 16 GB RAM, SSD 256 GB, GPU integrada</td>
+<td>VS Code, Git, Node.js (opcional), DevTools</td>
+</tr>
+<tr>
+<td><strong>Artista 2D / animador</strong></td>
+<td>4 núcleos, 8 GB RAM, tableta gráfica básica</td>
+<td>8 núcleos, 16–32 GB RAM, GPU dedicada 4 GB, tableta con presión</td>
+<td>Inkscape, Krita, Figma, OpenToonz</td>
+</tr>
+<tr>
+<td><strong>Audio</strong></td>
+<td>8 GB RAM, audio integrado, audífonos</td>
+<td>16 GB RAM, interfaz de audio, monitoreo</td>
+<td>Audacity, LMMS, Reaper (opcional)</td>
+</tr>
+<tr>
+<td><strong>Publicación</strong></td>
+<td>Conexión de 5 Mbps</td>
+<td>20 Mbps simétricos</td>
+<td>GitHub, GitHub Pages</td>
+</tr>
+</tbody></table>
+<p><strong>Conclusión:</strong> LUMEN se desarrolla y ejecuta en equipos modestos. El cuello de botella no es el hardware, sino la organización del proyecto y la disciplina de pruebas.</p>
+<hr>
+<h2>3. Requerimientos para jugar</h2>
+<h3>3.1 Hardware</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Mínimo</th>
+<th>Recomendado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU</td>
+<td>Cualquier x86-64 o ARM de 2015 en adelante</td>
+<td>2 núcleos a 2.0 GHz</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>2 GB</td>
+<td>4 GB</td>
+</tr>
+<tr>
+<td>Pantalla</td>
+<td>360 × 640 (móvil) / 1024 × 600 (escritorio)</td>
+<td>1920 × 1080</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>Integrada</td>
+<td>Cualquiera con aceleración 2D</td>
+</tr>
+<tr>
+<td>Entrada</td>
+<td>Teclado y ratón, o pantalla táctil</td>
+<td>Teclado + ratón</td>
+</tr>
+<tr>
+<td>Almacenamiento</td>
+<td>0 MB adicionales (todo se carga desde la web)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>1 Mbps para la primera carga (~150 KB)</td>
+<td>Cualquiera</td>
+</tr>
+</tbody></table>
+<h3>3.2 Software</h3>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Navegador</td>
+<td>Chrome/Edge 90+, Firefox 90+, Safari 15+</td>
+</tr>
+<tr>
+<td>APIs</td>
+<td>Canvas 2D, Web Audio API, <code>requestAnimationFrame</code>, <code>localStorage</code></td>
+</tr>
+<tr>
+<td>Sistema operativo</td>
+<td>Windows 10+, macOS 11+, Linux, Android 8+, iOS 15+</td>
+</tr>
+<tr>
+<td>Plugins</td>
+<td>Ninguno (no usa Flash, WebGL obligatorio ni extensiones)</td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td>No usa cookies; solo <code>localStorage</code> para récord y sonido</td>
+</tr>
+</tbody></table>
+<h3>3.3 Rendimiento esperado</h3>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Objetivo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cuadros por segundo</td>
+<td>60 fps estables en equipos de 2018+; mínimo aceptable 30 fps</td>
+</tr>
+<tr>
+<td>Uso de CPU</td>
+<td>&lt; 25 % de un núcleo en escritorio</td>
+</tr>
+<tr>
+<td>Memoria de la pestaña</td>
+<td>&lt; 120 MB</td>
+</tr>
+<tr>
+<td>Tiempo de carga</td>
+<td>&lt; 2 s en 10 Mbps</td>
+</tr>
+<tr>
+<td>Peso total</td>
+<td>~150 KB (HTML + CSS + JS + SVG)</td>
+</tr>
+<tr>
+<td>Latencia de entrada</td>
+<td>&lt; 50 ms percibidos</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>4. Requerimientos para desarrollar videojuegos</h2>
+<h3>4.1 Hardware del equipo de desarrollo</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Mínimo</th>
+<th>Recomendado</th>
+<th>Justificación</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU</td>
+<td>4 núcleos / 2.5 GHz</td>
+<td>6–8 núcleos / 3.0 GHz+</td>
+<td>Servidor local, navegador, editor y compilación opcional</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>8 GB</td>
+<td>16 GB (32 GB si se usa suite de Adobe)</td>
+<td>Navegador + editor + herramientas de arte</td>
+</tr>
+<tr>
+<td>Disco</td>
+<td>SSD 128 GB libres</td>
+<td>SSD NVMe 256 GB+</td>
+<td>Repositorio, capturas, videos y caché</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>Integrada</td>
+<td>Dedicada 4 GB (opcional)</td>
+<td>Solo necesaria para edición de video/animación</td>
+</tr>
+<tr>
+<td>Pantalla</td>
+<td>1920 × 1080</td>
+<td>2 monitores o ultrawide</td>
+<td>Código + vista previa simultáneos</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>10 Mbps</td>
+<td>50 Mbps</td>
+<td>Dependencias, GitHub, referencias</td>
+</tr>
+<tr>
+<td>Respaldo</td>
+<td>Disco externo / nube</td>
+<td>NAS + nube + Git remoto</td>
+<td>Evitar pérdida del proyecto</td>
+</tr>
+</tbody></table>
+<h3>4.2 Software por disciplina</h3>
+<h4>Programación</h4>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Versión</th>
+<th>Licencia</th>
+<th>Uso en LUMEN</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Visual Studio Code</strong></td>
+<td>1.80+</td>
+<td>MIT (gratis)</td>
+<td>Editor principal</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>2.30+</td>
+<td>GPLv2</td>
+<td>Control de versiones</td>
+</tr>
+<tr>
+<td><strong>GitHub</strong></td>
+<td>Web</td>
+<td>Gratis para repos públicos</td>
+<td>Repositorio y Pages</td>
+</tr>
+<tr>
+<td><strong>Node.js + npm</strong></td>
+<td>18 LTS+</td>
+<td>MIT</td>
+<td>Servidor local y herramientas opcionales</td>
+</tr>
+<tr>
+<td><strong>Python</strong></td>
+<td>3.9+</td>
+<td>PSF</td>
+<td><code>http.server</code> para pruebas locales</td>
+</tr>
+<tr>
+<td><strong>Navegador con DevTools</strong></td>
+<td>Chrome/Firefox actual</td>
+<td>Gratis</td>
+<td>Depuración, perfilado, consola</td>
+</tr>
+<tr>
+<td><strong>Prettier / ESLint</strong></td>
+<td>Opcional</td>
+<td>MIT</td>
+<td>Formato y estilo (no obligatorio)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>LUMEN no requiere <em>bundler</em>, transpilador ni gestor de paquetes: se ejecuta tal cual. Node.js o Python solo se usan para servir la carpeta.</p>
+</blockquote>
+<h4>Arte 2D y vectorial</h4>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Versión</th>
+<th>Licencia</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Inkscape</strong></td>
+<td>1.2+</td>
+<td>GPLv3</td>
+<td>Splash, mapa, storyboard, favicon (SVG)</td>
+</tr>
+<tr>
+<td><strong>Figma</strong></td>
+<td>Web</td>
+<td>Plan gratuito</td>
+<td>Bocetos, UI, prototipos</td>
+</tr>
+<tr>
+<td><strong>Krita</strong></td>
+<td>5.1+</td>
+<td>GPLv3</td>
+<td>Ilustración y texturas (si se requieren)</td>
+</tr>
+<tr>
+<td><strong>GIMP</strong></td>
+<td>2.10+</td>
+<td>GPLv3</td>
+<td>Retoque y exportación PNG</td>
+</tr>
+<tr>
+<td><strong>Aseprite</strong></td>
+<td>1.3+</td>
+<td>Pago (~$20 USD)</td>
+<td><em>Pixel art</em> para futuras versiones</td>
+</tr>
+</tbody></table>
+<h4>Animación 2D</h4>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Versión</th>
+<th>Licencia</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>OpenToonz</strong></td>
+<td>1.7+</td>
+<td>BSD</td>
+<td>Animación tradicional 2D y <em>cut-out</em></td>
+</tr>
+<tr>
+<td><strong>Synfig Studio</strong></td>
+<td>1.4+</td>
+<td>GPLv3</td>
+<td>Animación vectorial por interpolación</td>
+</tr>
+<tr>
+<td><strong>Blender</strong></td>
+<td>3.6+</td>
+<td>GPLv3</td>
+<td>Animación 3D/2.5D y <em>motion graphics</em></td>
+</tr>
+<tr>
+<td><strong>Krita</strong></td>
+<td>5.1+</td>
+<td>GPLv3</td>
+<td>Animación cuadro por cuadro</td>
+</tr>
+<tr>
+<td><strong>DaVinci Resolve</strong></td>
+<td>18+</td>
+<td>Gratis</td>
+<td>Edición y composición del video</td>
+</tr>
+<tr>
+<td><strong>OBS Studio</strong></td>
+<td>29+</td>
+<td>GPLv2</td>
+<td>Captura de pantalla y grabación del video</td>
+</tr>
+</tbody></table>
+<h4>Audio</h4>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Versión</th>
+<th>Licencia</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Audacity</strong></td>
+<td>3.4+</td>
+<td>GPLv2</td>
+<td>Edición y referencia de sonido</td>
+</tr>
+<tr>
+<td><strong>LMMS</strong></td>
+<td>1.2+</td>
+<td>GPLv2</td>
+<td>Composición de música (si se prefiere samples)</td>
+</tr>
+<tr>
+<td><strong>Reaper</strong></td>
+<td>7+</td>
+<td>Pago (licencia económica)</td>
+<td>Producción profesional opcional</td>
+</tr>
+<tr>
+<td><strong>Web Audio API</strong></td>
+<td>Navegador</td>
+<td>Estándar W3C</td>
+<td>Síntesis en tiempo real (usada en LUMEN)</td>
+</tr>
+</tbody></table>
+<h4>Documentación y gestión</h4>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Markdown + GitHub</strong></td>
+<td>README, GDD, guion, plan</td>
+</tr>
+<tr>
+<td><strong>GitHub Projects / Issues</strong></td>
+<td>Seguimiento de tareas</td>
+</tr>
+<tr>
+<td><strong>Draw.io / Excalidraw</strong></td>
+<td>Diagramas de flujo</td>
+</tr>
+<tr>
+<td><strong>Google Docs / LibreOffice</strong></td>
+<td>Borradores y guiones</td>
+</tr>
+</tbody></table>
+<h3>4.3 Formatos recomendados</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Formato</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Código</td>
+<td><code>.js</code>, <code>.css</code>, <code>.html</code></td>
+<td>Estándares web, sin compilación</td>
+</tr>
+<tr>
+<td>Arte vectorial</td>
+<td><code>.svg</code></td>
+<td>Escalable, editable, ligero, texto plano</td>
+</tr>
+<tr>
+<td>Capturas / mapas de bits</td>
+<td><code>.png</code></td>
+<td>Transparencia y compresión sin pérdida</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td><code>.md</code></td>
+<td>Versionable y legible en GitHub</td>
+</tr>
+<tr>
+<td>Audio (si se usara)</td>
+<td><code>.ogg</code> / <code>.mp3</code> (fuente <code>.wav</code>)</td>
+<td>Compatibilidad y peso</td>
+</tr>
+<tr>
+<td>Video</td>
+<td><code>.mp4</code> (H.264) / <code>.webm</code></td>
+<td>YouTube y web</td>
+</tr>
+<tr>
+<td>Configuración</td>
+<td><code>.yml</code></td>
+<td>GitHub Actions</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>5. Requerimientos para animación y video</h2>
+<h3>5.1 Hardware</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Mínimo</th>
+<th>Recomendado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU</td>
+<td>6 núcleos</td>
+<td>8–12 núcleos</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>16 GB</td>
+<td>32 GB</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>4 GB VRAM</td>
+<td>6–8 GB VRAM</td>
+</tr>
+<tr>
+<td>Disco</td>
+<td>SSD 512 GB</td>
+<td>NVMe 1 TB</td>
+</tr>
+<tr>
+<td>Tableta</td>
+<td>Wacom Intuos / XP-Pen básica</td>
+<td>Wacom Cintiq / XP-Pen Deco Pro</td>
+</tr>
+<tr>
+<td>Monitor</td>
+<td>1080p, 100 % sRGB</td>
+<td>1440p, 99 % sRGB / DCI-P3</td>
+</tr>
+</tbody></table>
+<h3>5.2 Flujo de animación propuesto</h3>
+<pre><code class="language-text">Guion y storyboard (Markdown + SVG)
+        │
+        ▼
+Bocetos y animática (Krita / OpenToonz)
+        │
+        ▼
+Arte final vectorial o raster (Inkscape / Krita)
+        │
+        ▼
+Animación y sincronía (OpenToonz / Blender)
+        │
+        ▼
+Composición y audio (DaVinci Resolve + Audacity)
+        │
+        ▼
+Exportación MP4 H.264 1080p 30/60 fps
+</code></pre>
+<h3>5.3 Especificaciones del video explicativo</h3>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Duración</td>
+<td>90–120 segundos</td>
+</tr>
+<tr>
+<td>Resolución</td>
+<td>1920 × 1080</td>
+</tr>
+<tr>
+<td>Cuadros por segundo</td>
+<td>30 o 60</td>
+</tr>
+<tr>
+<td>Códec</td>
+<td>H.264 / AAC</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>Voz clara, −16 LUFS aproximados</td>
+</tr>
+<tr>
+<td>Formato de entrega</td>
+<td>MP4 para YouTube / enlace no listado</td>
+</tr>
+<tr>
+<td>Captura</td>
+<td>OBS a 1080p, ventana del navegador sin notificaciones</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>6. Requerimientos de red y publicación</h2>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Requisito</th>
+<th>Costo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GitHub (repo público)</td>
+<td>Cuenta gratuita</td>
+<td>Gratis</td>
+</tr>
+<tr>
+<td>GitHub Pages</td>
+<td>Repositorio público, rama <code>main</code> o Actions</td>
+<td>Gratis</td>
+</tr>
+<tr>
+<td>Dominio</td>
+<td>Opcional; <code>*.github.io</code> incluido</td>
+<td>Gratis / dominio propio aparte</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>Automático en Pages</td>
+<td>Gratis</td>
+</tr>
+<tr>
+<td>CDN</td>
+<td>GitHub Pages sirve por CDN</td>
+<td>Incluido</td>
+</tr>
+</tbody></table>
+<h3>Checklist de publicación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <code>index.html</code> en la raíz del repositorio.</li>
+<li><input checked="" disabled="" type="checkbox"> Rutas relativas (sin <code>/</code> inicial) para que funcione en subcarpeta.</li>
+<li><input checked="" disabled="" type="checkbox"> <code>.nojekyll</code> para evitar el procesado de Jekyll.</li>
+<li><input checked="" disabled="" type="checkbox"> Workflow de GitHub Actions para desplegar en cada push.</li>
+<li><input checked="" disabled="" type="checkbox"> Probado en Chrome y Firefox, en escritorio y móvil.</li>
+<li><input checked="" disabled="" type="checkbox"> Enlaces del README apuntando a la URL de Pages.</li>
+<li><input checked="" disabled="" type="checkbox"> Licencia y créditos visibles.</li>
+</ul>
+<hr>
+<h2>7. Seguridad, privacidad y accesibilidad</h2>
+<table>
+<thead>
+<tr>
+<th>Tema</th>
+<th>Medida</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Datos personales</td>
+<td>No se recopilan; no hay formularios ni analítica</td>
+</tr>
+<tr>
+<td>Almacenamiento</td>
+<td>Solo <code>lumen.best</code> y <code>lumen.muted</code> en <code>localStorage</code></td>
+</tr>
+<tr>
+<td>Dependencias</td>
+<td>Cero librerías de terceros; superficie de ataque mínima</td>
+</tr>
+<tr>
+<td>Contenido externo</td>
+<td>Ninguno; todo se sirve desde el propio repositorio</td>
+</tr>
+<tr>
+<td>Accesibilidad</td>
+<td>Teclado, táctil, <code>prefers-reduced-motion</code>, contraste alto</td>
+</tr>
+<tr>
+<td>Licencias</td>
+<td>Código MIT, arte propio, audio sintetizado sin samples</td>
+</tr>
+<tr>
+<td>Menores</td>
+<td>Sin chat, sin compras, sin publicidad</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>8. Estimación de costos</h2>
+<table>
+<thead>
+<tr>
+<th>Rubro</th>
+<th>Opción gratuita (usada)</th>
+<th>Opción profesional</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Editor de código</td>
+<td>VS Code</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Control de versiones</td>
+<td>Git + GitHub</td>
+<td>GitHub Team</td>
+</tr>
+<tr>
+<td>Arte vectorial</td>
+<td>Inkscape / Figma gratis</td>
+<td>Adobe Illustrator</td>
+</tr>
+<tr>
+<td>Animación</td>
+<td>OpenToonz / Krita</td>
+<td>Toon Boom Harmony</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>Web Audio + Audacity</td>
+<td>Reaper + librerías</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>GitHub Pages</td>
+<td>Hosting + CDN</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>$0 USD</strong></td>
+<td><strong>$500–$2 000 USD/año</strong></td>
+</tr>
+</tbody></table>
+<p>LUMEN demuestra que la opción gratuita es suficiente para un proyecto académico y publicable.</p>
+<hr>
+<h2>9. Matriz de trazabilidad con la actividad</h2>
+<table>
+<thead>
+<tr>
+<th>Requerimiento de la actividad</th>
+<th>Sección de este documento</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Descripción de requerimientos de hardware</td>
+<td>3.1, 4.1, 5.1</td>
+</tr>
+<tr>
+<td>Herramientas de software para videojuegos</td>
+<td>4.2</td>
+</tr>
+<tr>
+<td>Herramientas de software para animación</td>
+<td>4.2, 5.2</td>
+</tr>
+<tr>
+<td>Formatos y estándares</td>
+<td>4.3</td>
+</tr>
+<tr>
+<td>Publicación y red</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Restricciones legales y de accesibilidad</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Costos</td>
+<td>8</td>
+</tr>
+</tbody></table>
+<p align="center"><sub>Documento técnico · LUMEN · v1.0.0</sub></p>
+</article>
+</main>
+</body>
+</html>

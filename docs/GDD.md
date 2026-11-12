@@ -316,7 +316,22 @@ Fija, cenital, sin scroll. Todo el nivel cabe en 960 × 600 unidades lógicas. L
 
 ---
 
-## 11. Bucle de juego y score
+## 11. Mecánicas, bucle de juego y score
+
+### Mecánicas principales
+
+| Mecánica | Entrada | Regla | Propósito |
+| --- | --- | --- | --- |
+| **Vuelo libre** | `WASD` / flechas / arrastre | Aceleración con inercia, velocidad máxima 262 px/s, sin gravedad | Control directo y legible en una sola pantalla |
+| **Luz como recurso** | Pasiva | Empieza en 100 y baja 5.0–7.0 por segundo según el nivel | Presión constante: nunca puedes quedarte quieto |
+| **Recolección** | Contacto con chispa | +15 de luz y puntos; el aura de 90–166 px atrae las chispas cercanas | Recompensa el movimiento y crea rutas |
+| **Combo** | Encadenar chispas | +1 por chispa dentro de 2.2 s; máximo ×9; se reinicia con daño | Riesgo/recompensa: correr para no perder la cadena |
+| **Destello** | `Espacio` / botón táctil | Cuesta 12 de luz, impulso de 0.16 s, 1.05 s de enfriamiento, 0.42 s de invulnerabilidad | Defensa activa con costo, no un ataque gratuito |
+| **Encender farol** | Contacto con ≥30 de luz | Cuesta 30 de luz, +200 × nivel y onda que barre sombras en 300 px | Objetivo del nivel y alivio táctico |
+| **Sombras** | Persecución autónoma | Daño de 22 de luz, empuje y reinicio del combo; se disipan con destello u onda | Amenaza que obliga a leer el espacio |
+| **Dificultad progresiva** | Por nivel | +1 sombra, +0.5 de drenaje, +10 px/s de velocidad y hasta +28 % con luz baja | Curva clara sin cambiar las reglas |
+
+**Condición de tensión:** las sombras aceleran cuando la luz de Lumen baja, de modo que el peor momento del jugador es también el más peligroso. No hay *power-ups* temporales ni vidas extra: toda la economía gira en torno a una sola variable.
 
 ### Bucle principal
 

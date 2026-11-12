@@ -1,6 +1,6 @@
 # Documento técnico — Requerimientos de hardware y software
 
-> Proyecto: **LUMEN — La última luciérnaga** · Desarrollo de videojuegos y animación 2D
+> Proyecto: **LUMEN — La última luciérnaga** · Desarrollo de videojuegos y animación 2D  
 > Autor: Diego Alejandro Franco Partida · v1.0.0 · Noviembre de 2026
 
 ---

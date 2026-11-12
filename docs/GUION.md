@@ -6,9 +6,9 @@
 
 ## 1. Prólogo (texto de apertura, opcional)
 
-> *Antes, el jardín brillaba cada noche.*
-> *Cientos de luciérnagas dibujaban caminos en el aire.*
-> *Después llegó el Olvido y apagó los faroles.*
+> *Antes, el jardín brillaba cada noche.*  
+> *Cientos de luciérnagas dibujaban caminos en el aire.*  
+> *Después llegó el Olvido y apagó los faroles.*  
 > *Solo quedó una chispa despierta.*
 >
 > **Esa chispa eres tú.**
@@ -87,8 +87,8 @@ Se muestran en el panel de inicio, con el nombre del nivel y una cuenta regresiv
 
 ### Derrota (luz a 0)
 
-> **Pantalla:** *Tu luz se apagó.*
-> **Farolero:** «Duerme. Mañana habrá otra chispa.»
+> **Pantalla:** *Tu luz se apagó.*  
+> **Farolero:** «Duerme. Mañana habrá otra chispa.»  
 > **Interfaz:** puntaje, récord, nivel alcanzado, **Reintentar** / **Menú**.
 
 ### Victoria (nivel 5 completado)
@@ -105,10 +105,10 @@ Se muestran en el panel de inicio, con el nombre del nivel y una cuenta regresiv
 
 ### Texto de créditos (pantalla de créditos)
 
-> **LUMEN — La última luciérnaga**
-> Diseño, programación, arte y audio: Diego Alejandro Franco Partida.
-> Motor: JavaScript + Canvas 2D + Web Audio API.
-> Música y efectos: síntesis procedural, sin samples.
+> **LUMEN — La última luciérnaga**  
+> Diseño, programación, arte y audio: Diego Alejandro Franco Partida.  
+> Motor: JavaScript + Canvas 2D + Web Audio API.  
+> Música y efectos: síntesis procedural, sin samples.  
 > Licencia MIT. Hecho de noche, con una luciérnaga.
 
 ---

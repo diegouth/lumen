@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafolio de evidencias · LUMEN</title>
+<meta name="description" content="Documentación de LUMEN">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --ink: #17212b;
+  --muted: #5a6b78;
+  --faint: #8496a3;
+  --accent: #0b6e7f;
+  --accent-soft: #e6f4f7;
+  --amber: #9a6b00;
+  --line: #d7e2e8;
+  --code-bg: #f4f7f9;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #eef1f4;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  background: rgba(9, 18, 26, 0.96);
+  border-bottom: 1px solid #1d2f3c;
+  backdrop-filter: blur(8px);
+}
+.doc-nav a {
+  color: #9fb4c2;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.doc-nav a:hover { color: #7ef9ff; border-color: rgba(126, 249, 255, 0.35); }
+.doc-nav a.active { color: #04121a; background: #7ef9ff; font-weight: 700; }
+.doc-nav a.back { color: #7ef9ff; margin-right: 8px; }
+
+.page {
+  max-width: 860px;
+  margin: 28px auto 60px;
+  padding: 52px 60px 64px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(15, 32, 45, 0.12);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mono);
+  line-height: 1.25;
+  color: #0d1a24;
+}
+h1 { font-size: 30px; letter-spacing: 0.02em; margin: 0 0 26px; }
+h2 {
+  font-size: 22px;
+  margin: 46px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 { font-size: 16.5px; margin: 30px 0 10px; color: var(--accent); }
+h4 { font-size: 14px; margin: 22px 0 8px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+p { margin: 0 0 14px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #064d59; }
+strong { color: #0d1a24; }
+em { color: var(--muted); }
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin: 4px 0; }
+li::marker { color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+  color: #24323d;
+}
+blockquote p:last-child { margin-bottom: 0; }
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #0a4f5c;
+}
+pre {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: #0d1a24;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #cfeefa;
+  font-size: 12.5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 22px;
+  font-size: 13.5px;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--accent-soft);
+  color: #0a4f5c;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) { background: #fafcfd; }
+img { max-width: 100%; height: auto; }
+p[align="center"] img { display: inline-block; }
+
+/* Portada */
+.cover {
+  text-align: center;
+  padding: 8px 0 32px;
+  border-bottom: 3px solid var(--accent-soft);
+  margin-bottom: 10px;
+}
+.cover-logo { width: 100%; max-width: 520px; border-radius: 8px; }
+.cover-kicker {
+  margin: 24px 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cover-title { margin: 0 0 6px; font-size: 26px; }
+.cover-project {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-meta {
+  width: auto;
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: left;
+}
+.cover-meta th {
+  width: 38%;
+  background: #f7fafb;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-foot {
+  margin: 22px 0 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+/* Evita duplicar el título cuando ya lo muestra la portada */
+.cover + .doc-body > h1:first-child { display: none; }
+
+/* Índice de documentos */
+.portfolio-intro { margin-bottom: 28px; }
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+}
+.doc-card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: #fbfdfe;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.doc-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 22px rgba(11, 110, 127, 0.12);
+  transform: translateY(-2px);
+}
+.doc-card strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-card span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.doc-card em {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--faint);
+}
+.badge-pdf {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #fdecec;
+  color: #a33;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+.foot-note {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* Impresión / PDF */
+@media print {
+  @page { size: A4; margin: 17mm 15mm 18mm; }
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+  .doc-nav { display: none !important; }
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h2 { page-break-after: avoid; break-after: avoid; margin-top: 26px; }
+  h3 { page-break-after: avoid; break-after: avoid; }
+  pre, img, blockquote { page-break-inside: avoid; break-inside: avoid; }
+  table { page-break-inside: auto; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; break-inside: avoid; }
+  pre { background: #f4f7f9; border: 1px solid var(--line); }
+  pre code { color: #17212b; font-size: 9pt; }
+  a { color: var(--accent); }
+  .cover { page-break-after: always; break-after: page; }
+  .doc-card { box-shadow: none; }
+}
+
+@media (max-width: 720px) {
+  .page { margin: 0; border-radius: 0; padding: 26px 20px 44px; box-shadow: none; }
+  .doc-nav { padding: 8px 10px; }
+  body { font-size: 15px; }
+  h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 7px; }
+}
+</style>
+</head>
+<body class="is-index">
+<nav class="doc-nav" aria-label="Documentos"><a href="../index.html" class="back">← Jugar</a><a href="GDD.html">GDD</a><a href="REQUERIMIENTOS.html">Requerimientos</a><a href="STORYBOARD.html">Storyboard</a><a href="GUION.html">Guión</a><a href="PLAN-DE-TRABAJO.html">Plan de trabajo</a><a href="VIDEO.html">Guión del video</a></nav>
+<main class="page">
+
+
+  <header class="cover">
+    <img class="cover-logo" src="../assets/splash.svg" alt="LUMEN — La última luciérnaga">
+    <p class="cover-kicker">Desarrollo de Videojuegos</p>
+    <h1 class="cover-title">Portafolio de evidencias</h1>
+    <p class="cover-project">LUMEN — La última luciérnaga</p>
+    <table class="cover-meta">
+      <tr><th>Autor</th><td>Diego Alejandro Franco Partida</td></tr>
+      <tr><th>Correo</th><td>23311024@uthermosillo.edu.mx</td></tr>
+      <tr><th>Materia</th><td>Desarrollo de Videojuegos</td></tr>
+      <tr><th>Fecha</th><td>Noviembre de 2026</td></tr>
+      <tr><th>Repositorio</th><td><a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></td></tr>
+      <tr><th>Jugar en línea</th><td><a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a></td></tr>
+    </table>
+    <p class="cover-foot">Proyecto individual · Licencia MIT</p>
+  </header>
+<section class="portfolio-intro">
+  <h2 style="margin-top:34px">Documentación del proyecto</h2>
+  <p><strong>LUMEN</strong> es un arcade web minimalista construido con JavaScript puro, Canvas 2D y Web Audio API, sin
+  frameworks ni archivos externos de imagen o sonido. Esta página reúne los documentos de diseño y técnicos que
+  acompañan al juego, en su versión navegable. Cada documento está disponible también en <strong>Markdown</strong>
+  dentro del repositorio y en <strong>PDF</strong> para entrega.</p>
+  <p><strong>Juego en línea:</strong> <a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a><br>
+  <strong>Repositorio:</strong> <a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></p>
+</section>
+<section class="doc-grid">
+<a class="doc-card" href="GDD.html">
+      <strong>GDD<span class="badge-pdf">PDF</span></strong>
+      <span>Concepto, historia, mecánicas, personajes, niveles, armas, vestimenta, props, arte, audio, score y créditos.</span>
+      <em>Documento de Diseño de Juego</em>
+    </a>
+<a class="doc-card" href="REQUERIMIENTOS.html">
+      <strong>Requerimientos</strong>
+      <span>Hardware y herramientas de software para el desarrollo de videojuegos y de animación.</span>
+      <em>Documento técnico de requerimientos</em>
+    </a>
+<a class="doc-card" href="STORYBOARD.html">
+      <strong>Storyboard</strong>
+      <span>Seis viñetas del flujo de juego, transiciones y principios de cámara.</span>
+      <em>Storyboard</em>
+    </a>
+<a class="doc-card" href="GUION.html">
+      <strong>Guión</strong>
+      <span>Prólogo, textos por nivel, diálogos, avisos, finales y reglas de estilo.</span>
+      <em>Guión narrativo</em>
+    </a>
+<a class="doc-card" href="PLAN-DE-TRABAJO.html">
+      <strong>Plan de trabajo</strong>
+      <span>Cronograma, alcance MoSCoW, ramas, convenciones de commit, roles y control de calidad.</span>
+      <em>Plan de trabajo y flujo Git</em>
+    </a>
+<a class="doc-card" href="VIDEO.html">
+      <strong>Guión del video</strong>
+      <span>Guion segundo a segundo del video de 90 segundos sobre el código.</span>
+      <em>Guión del video explicativo</em>
+    </a>
+</section>
+<section class="foot-note">
+  Portafolio de evidencias · Desarrollo de Videojuegos · Diego Alejandro Franco Partida · Noviembre de 2026
+</section>
+</main>
+</body>
+</html>

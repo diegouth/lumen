@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documento de Diseño de Juego · LUMEN</title>
+<meta name="description" content="Concepto, historia, mecánicas, personajes, niveles, armas, vestimenta, props, arte, audio, score y créditos.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --ink: #17212b;
+  --muted: #5a6b78;
+  --faint: #8496a3;
+  --accent: #0b6e7f;
+  --accent-soft: #e6f4f7;
+  --amber: #9a6b00;
+  --line: #d7e2e8;
+  --code-bg: #f4f7f9;
+  --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #eef1f4;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  background: rgba(9, 18, 26, 0.96);
+  border-bottom: 1px solid #1d2f3c;
+  backdrop-filter: blur(8px);
+}
+.doc-nav a {
+  color: #9fb4c2;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.doc-nav a:hover { color: #7ef9ff; border-color: rgba(126, 249, 255, 0.35); }
+.doc-nav a.active { color: #04121a; background: #7ef9ff; font-weight: 700; }
+.doc-nav a.back { color: #7ef9ff; margin-right: 8px; }
+
+.page {
+  max-width: 860px;
+  margin: 28px auto 60px;
+  padding: 52px 60px 64px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(15, 32, 45, 0.12);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mono);
+  line-height: 1.25;
+  color: #0d1a24;
+}
+h1 { font-size: 30px; letter-spacing: 0.02em; margin: 0 0 26px; }
+h2 {
+  font-size: 22px;
+  margin: 46px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-soft);
+}
+h3 { font-size: 16.5px; margin: 30px 0 10px; color: var(--accent); }
+h4 { font-size: 14px; margin: 22px 0 8px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+p { margin: 0 0 14px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #064d59; }
+strong { color: #0d1a24; }
+em { color: var(--muted); }
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin: 4px 0; }
+li::marker { color: var(--accent); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
+blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 6px 6px 0;
+  color: #24323d;
+}
+blockquote p:last-child { margin-bottom: 0; }
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: #0a4f5c;
+}
+pre {
+  margin: 18px 0;
+  padding: 16px 18px;
+  background: #0d1a24;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #cfeefa;
+  font-size: 12.5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 22px;
+  font-size: 13.5px;
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+thead th {
+  background: var(--accent-soft);
+  color: #0a4f5c;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) { background: #fafcfd; }
+img { max-width: 100%; height: auto; }
+p[align="center"] img { display: inline-block; }
+
+/* Portada */
+.cover {
+  text-align: center;
+  padding: 8px 0 32px;
+  border-bottom: 3px solid var(--accent-soft);
+  margin-bottom: 10px;
+}
+.cover-logo { width: 100%; max-width: 520px; border-radius: 8px; }
+.cover-kicker {
+  margin: 24px 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cover-title { margin: 0 0 6px; font-size: 26px; }
+.cover-project {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-meta {
+  width: auto;
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: left;
+}
+.cover-meta th {
+  width: 38%;
+  background: #f7fafb;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cover-foot {
+  margin: 22px 0 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+/* Evita duplicar el título cuando ya lo muestra la portada */
+.cover + .doc-body > h1:first-child { display: none; }
+
+/* Índice de documentos */
+.portfolio-intro { margin-bottom: 28px; }
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+}
+.doc-card {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: #fbfdfe;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.doc-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 22px rgba(11, 110, 127, 0.12);
+  transform: translateY(-2px);
+}
+.doc-card strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-card span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.doc-card em {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--faint);
+}
+.badge-pdf {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #fdecec;
+  color: #a33;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  vertical-align: middle;
+}
+.foot-note {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+
+/* Impresión / PDF */
+@media print {
+  @page { size: A4; margin: 17mm 15mm 18mm; }
+  body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
+  .doc-nav { display: none !important; }
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  h2 { page-break-after: avoid; break-after: avoid; margin-top: 26px; }
+  h3 { page-break-after: avoid; break-after: avoid; }
+  pre, img, blockquote { page-break-inside: avoid; break-inside: avoid; }
+  table { page-break-inside: auto; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; break-inside: avoid; }
+  pre { background: #f4f7f9; border: 1px solid var(--line); }
+  pre code { color: #17212b; font-size: 9pt; }
+  a { color: var(--accent); }
+  .cover { page-break-after: always; break-after: page; }
+  .doc-card { box-shadow: none; }
+}
+
+@media (max-width: 720px) {
+  .page { margin: 0; border-radius: 0; padding: 26px 20px 44px; box-shadow: none; }
+  .doc-nav { padding: 8px 10px; }
+  body { font-size: 15px; }
+  h1 { font-size: 25px; }
+  h2 { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 6px 7px; }
+}
+</style>
+</head>
+<body class="">
+<nav class="doc-nav" aria-label="Documentos"><a href="../index.html" class="back">← Jugar</a><a href="GDD.html" class="active" aria-current="page">GDD</a><a href="REQUERIMIENTOS.html">Requerimientos</a><a href="STORYBOARD.html">Storyboard</a><a href="GUION.html">Guión</a><a href="PLAN-DE-TRABAJO.html">Plan de trabajo</a><a href="VIDEO.html">Guión del video</a></nav>
+<main class="page">
+<article class="doc-body"><h1>LUMEN — Documento de Diseño de Juego (GDD)</h1>
+<blockquote>
+<p>Versión Lean · v1.0.0 · Noviembre de 2026</p>
+</blockquote>
+<hr>
+<h2>1. Portada</h2>
+<p align="center">
+  <img src="../assets/splash.svg" alt="LUMEN — La última luciérnaga" width="100%">
+</p><h3>Ficha del proyecto</h3>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Nombre del juego</strong></td>
+<td>LUMEN — La última luciérnaga</td>
+</tr>
+<tr>
+<td><strong>Género</strong></td>
+<td>Arcade de recolección y esquiva</td>
+</tr>
+<tr>
+<td><strong>Plataforma</strong></td>
+<td>Navegador web (HTML5 Canvas)</td>
+</tr>
+<tr>
+<td><strong>Versión</strong></td>
+<td>1.0.0</td>
+</tr>
+<tr>
+<td><strong>Autor</strong></td>
+<td>Diego Alejandro Franco Partida</td>
+</tr>
+<tr>
+<td><strong>Materia</strong></td>
+<td>Desarrollo de Videojuegos</td>
+</tr>
+<tr>
+<td><strong>Fecha</strong></td>
+<td>Noviembre de 2026</td>
+</tr>
+<tr>
+<td><strong>Repositorio</strong></td>
+<td><a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></td>
+</tr>
+<tr>
+<td><strong>Jugar en línea</strong></td>
+<td><a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a></td>
+</tr>
+<tr>
+<td><strong>Licencia</strong></td>
+<td>MIT</td>
+</tr>
+</tbody></table>
+<h3>Integrante</h3>
+<table>
+  <tr>
+    <td width="140" align="center">
+      <img src="../assets/avatar.svg" alt="Diego Alejandro Franco Partida" width="120">
+    </td>
+    <td>
+      <strong>Diego Alejandro Franco Partida</strong><br>
+      Diseño de juego, programación, arte vectorial, audio y documentación.<br>
+      <em>Proyecto individual.</em><br><br>
+      <sub>Nota: sustituye <code>assets/avatar.svg</code> por tu fotografía para la entrega final.</sub>
+    </td>
+  </tr>
+</table><hr>
+<h2>2. Concepto</h2>
+<p><strong>LUMEN</strong> es un arcade minimalista en el que controlas a la última luciérnaga de un jardín que perdió su luz. La energía de Lumen disminuye constantemente; recolectar chispas la alimenta y encender faroles devuelve la luz al entorno. Las sombras, atraídas por el brillo, la persiguen sin descanso.</p>
+<p><strong>Pitch en una frase:</strong> <em>recoge luz, enciende faroles y sobrevive a cinco noches antes de que tu propia chispa se apague.</em></p>
+<h3>Pilares de diseño</h3>
+<ol>
+<li><strong>La luz es vida, puntaje y visibilidad a la vez.</strong> Una sola variable obliga a decidir entre explorar, encender o escapar.</li>
+<li><strong>Movimiento expresivo.</strong> El destello convierte la defensa en una decisión de riesgo: cuesta luz, pero abre camino.</li>
+<li><strong>Ritmo corto y legible.</strong> Cada nivel dura entre 40 y 90 segundos; todo cabe en una pantalla y se entiende en la primera partida.</li>
+<li><strong>Estética de noche.</strong> Fondo casi negro, brillos bioluminiscentes y una paleta de tres acentos.</li>
+</ol>
+<hr>
+<h2>3. Género y público objetivo</h2>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Género principal</strong></td>
+<td>Arcade / <em>collect-a-thon</em></td>
+</tr>
+<tr>
+<td><strong>Subgéneros</strong></td>
+<td>Esquiva, <em>score attack</em>, <em>dodge ’em up</em></td>
+</tr>
+<tr>
+<td><strong>Perspectiva</strong></td>
+<td>Vista cenital 2D</td>
+</tr>
+<tr>
+<td><strong>Modo</strong></td>
+<td>Un jugador, partidas de 3 a 6 minutos</td>
+</tr>
+<tr>
+<td><strong>Curva de dificultad</strong></td>
+<td>Progresiva por nivel (más sombras, más drenaje, más velocidad)</td>
+</tr>
+<tr>
+<td><strong>Público primario</strong></td>
+<td>Jugadores casuales de 12 a 35 años</td>
+</tr>
+<tr>
+<td><strong>Público secundario</strong></td>
+<td>Estudiantes de programación y docentes que buscan un ejemplo completo y libre</td>
+</tr>
+<tr>
+<td><strong>Experiencia previa requerida</strong></td>
+<td>Ninguna</td>
+</tr>
+<tr>
+<td><strong>Clasificación sugerida</strong></td>
+<td>ATP / E (violencia fantástica mínima, sin sangre)</td>
+</tr>
+</tbody></table>
+<h3>Motivaciones del jugador</h3>
+<ul>
+<li><strong>Competencia consigo mismo:</strong> superar el récord guardado.</li>
+<li><strong>Dominio:</strong> aprender a leer el movimiento de las sombras y encadenar combos.</li>
+<li><strong>Exploración:</strong> descubrir los cinco escenarios y su música.</li>
+<li><strong>Relajación activa:</strong> una experiencia corta, sin castigos severos ni curvas de aprendizaje largas.</li>
+</ul>
+<hr>
+<h2>4. Historia y ambientación</h2>
+<h3>Premisa</h3>
+<p>Hace mucho tiempo, el jardín de <em>Valdeflor</em> se iluminaba cada noche con cientos de luciérnagas. Una noche, una niebla sin nombre —<strong>el Olvido</strong>— apagó los faroles y se llevó la luz. Las luciérnagas se apagaron una a una. Solo quedó <strong>Lumen</strong>, la más pequeña, despierta por casualidad.</p>
+<h3>Sinopsis</h3>
+<p>Lumen despierta en un jardín que ya no reconoce. Los faroles que antes marcaban los caminos están fríos, y unas sombras con ojos de violeta recorren la oscuridad. Una vocecita —el último farolero— le explica que la luz no se perdió: está dispersa en chispas que flotan entre las plantas. Si Lumen enciende los quince faroles del jardín, la noche volverá a ser suya.</p>
+<p>Cada nivel es una zona del jardín, y cada farol encendido devuelve un recuerdo: el musgo, el invernadero, el estanque, los helechos y, al final, el mirador desde donde se ve el mar.</p>
+<h3>Tono</h3>
+<p>Íntimo, nocturno y esperanzador. Sin diálogos largos: la historia se cuenta en tres líneas de introducción por nivel y en la voz del farolero. La melancolía se resuelve en luz.</p>
+<h3>Temas</h3>
+<ul>
+<li>La memoria como fuente de luz.</li>
+<li>La comunidad (muchas luciérnagas) frente al individualismo (una sola).</li>
+<li>El miedo a la oscuridad y la valentía de volver a encender.</li>
+</ul>
+<hr>
+<h2>5. Personajes</h2>
+<h3>Lumen — protagonista</h3>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Especie</strong></td>
+<td>Luciérnaga joven</td>
+</tr>
+<tr>
+<td><strong>Tamaño</strong></td>
+<td>11 px de radio en pantalla (un punto de luz)</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>Núcleo blanco cian; abdomen ámbar</td>
+</tr>
+<tr>
+<td><strong>Personalidad</strong></td>
+<td>Curiosa, terca, incapaz de dejar un farol apagado</td>
+</tr>
+<tr>
+<td><strong>Habilidad</strong></td>
+<td>Destello: un latido de luz que la vuelve intangible y disipa sombras</td>
+</tr>
+<tr>
+<td><strong>Debilidad</strong></td>
+<td>Su luz se consume con el tiempo</td>
+</tr>
+<tr>
+<td><strong>Arco</strong></td>
+<td>De sobrevivir sola a devolver la luz a todo el jardín</td>
+</tr>
+</tbody></table>
+<p><strong>Diseño visual:</strong> un punto blanco con un halo cian, dos alas translúcidas que baten a 24 Hz y un abdomen ámbar que parpadea al ritmo del combo. Al recibir daño parpadea; al hacer destello deja una estela de luz.</p>
+<h3>Las Sombras — antagonista</h3>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Origen</strong></td>
+<td>El Olvido: luz que se apagó y olvidó su nombre</td>
+</tr>
+<tr>
+<td><strong>Apariencia</strong></td>
+<td>Círculos negros con borde violeta y dos ojos claros</td>
+</tr>
+<tr>
+<td><strong>Comportamiento</strong></td>
+<td>Persiguen a Lumen con oscilación; se separan entre sí; se vuelven más rápidas cuando la luz de Lumen baja</td>
+</tr>
+<tr>
+<td><strong>Debilidad</strong></td>
+<td>El destello y la onda de un farol</td>
+</tr>
+<tr>
+<td><strong>Función</strong></td>
+<td>Presionar sin castigar de forma injusta; son lentas, pero nunca se detienen</td>
+</tr>
+</tbody></table>
+<h3>El Farolero — voz guía</h3>
+<p>Personaje no visible. Su voz aparece en los textos de introducción y en el final. Es la memoria del jardín y quien le explica a Lumen para qué sirve cada farol.</p>
+<blockquote>
+<p>«La luz no se gasta, pequeña. Solo cambia de manos.»</p>
+</blockquote>
+<h3>Las luciérnagas antiguas — trasfondo</h3>
+<p>No aparecen en pantalla. Son las luces que se apagaron; su recuerdo se recupera al encender cada farol. En el final, el jardín vuelve a llenarse de puntos de luz.</p>
+<hr>
+<h2>6. Niveles</h2>
+<h3>Estructura general</h3>
+<ul>
+<li><strong>5 niveles</strong>, cada uno con <strong>3 faroles</strong> (15 faroles en total).</li>
+<li>Los faroles tienen posiciones fijas por nivel (diseño de mapa), las chispas aparecen en posiciones aleatorias y las sombras entran por los bordes.</li>
+<li>El nivel termina cuando los tres faroles están encendidos; no hay temporizador, pero el drenaje de luz presiona constantemente.</li>
+<li>Las posiciones de los faroles del nivel 1 coinciden con el mapa de la sección 6.1.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Escenario</th>
+<th>Sombras</th>
+<th>Drenaje</th>
+<th>Velocidad base</th>
+<th>Chispas</th>
+<th>Faroles (x, y)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Jardín de musgo</td>
+<td>2</td>
+<td>5.0/s</td>
+<td>62 px/s</td>
+<td>7</td>
+<td>(220, 170) · (740, 160) · (480, 430)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Invernadero roto</td>
+<td>3</td>
+<td>5.5/s</td>
+<td>72 px/s</td>
+<td>7</td>
+<td>(170, 420) · (480, 150) · (800, 390)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Estanque de luna</td>
+<td>4</td>
+<td>6.0/s</td>
+<td>82 px/s</td>
+<td>8</td>
+<td>(250, 140) · (710, 250) · (470, 470)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bosque de helechos</td>
+<td>5</td>
+<td>6.5/s</td>
+<td>92 px/s</td>
+<td>8</td>
+<td>(140, 300) · (520, 120) · (810, 470)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Mirador del faro</td>
+<td>6</td>
+<td>7.0/s</td>
+<td>102 px/s</td>
+<td>9</td>
+<td>(180, 160) · (780, 170) · (490, 330)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>La velocidad efectiva de las sombras suma <strong>+4 px/s por nivel</strong> y hasta un <strong>28 % adicional</strong> cuando la luz de Lumen está baja, como mecanismo de tensión.</p>
+</blockquote>
+<h3>6.1 Mapa del nivel 1 — Jardín de musgo</h3>
+<p align="center">
+  <img src="../assets/mapa-nivel-1.svg" alt="Mapa del nivel 1: Jardín de musgo" width="100%">
+</p><p><strong>Comportamiento general del mapa</strong></p>
+<ul>
+<li>Lumen aparece en el centro-sur (480, 370) con 100 de luz.</li>
+<li>El farol 3 está a pocos pasos (480, 430), pensado como tutorial: el jugador aprende a encender sin recorrer todo el mapa.</li>
+<li>Los faroles 1 y 2 obligan a cruzar el jardín en diagonal, pasando por el arroyo y las zonas de musgo.</li>
+<li>Las sombras entran por los cuatro bordes; no hay zonas seguras permanentes, solo rutas.</li>
+<li>Las chispas aparecen en cualquier punto con margen de 60 px y a más de 130 px del jugador, para que nunca haya una chispa «gratis».</li>
+<li>El aura de Lumen (90 a 166 px según la luz) atrae las chispas cercanas, lo que convierte la recolección en un pequeño imán.</li>
+</ul>
+<h3>6.2 Progresión narrativa</h3>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Introducción</th>
+<th>Lectura</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>«Las luciérnagas antiguas dormían entre el musgo. Despiértalas.»</td>
+<td>Tutorial y melancolía.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>«El cristal roto corta la noche. Las sombras ya saben dónde estás.»</td>
+<td>El peligro se vuelve activo.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>«El estanque refleja un cielo que ya no existe. No te detengas.»</td>
+<td>Reflexión y velocidad.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>«Los helechos susurran nombres antiguos. Corre antes de que te alcancen.»</td>
+<td>Persecución y dominio.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>«Desde el mirador se ve el último faro. Enciéndelo y devuelve la noche a las estrellas.»</td>
+<td>Clímax y resolución.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>7. Armas y habilidades</h2>
+<p>LUMEN no usa armas convencionales: la protagonista es una luciérnaga, y su única herramienta es la luz. Las «armas» del diseño son <strong>habilidades con costo de energía</strong>, coherentes con la fantasía del personaje.</p>
+<h3>7.1 Destello (habilidad activa)</h3>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Entrada</strong></td>
+<td><code>Espacio</code> (teclado) / botón <strong>DESTELLO</strong> (táctil)</td>
+</tr>
+<tr>
+<td><strong>Costo</strong></td>
+<td>12 de luz</td>
+</tr>
+<tr>
+<td><strong>Duración</strong></td>
+<td>0.16 s de impulso a 760 px/s</td>
+</tr>
+<tr>
+<td><strong>Enfriamiento</strong></td>
+<td>1.05 s</td>
+</tr>
+<tr>
+<td><strong>Invulnerabilidad</strong></td>
+<td>0.42 s</td>
+</tr>
+<tr>
+<td><strong>Efecto</strong></td>
+<td>Disipa las sombras que atraviesa (+25 × nivel puntos)</td>
+</tr>
+</tbody></table>
+<p><strong>Uso táctico:</strong> escapar de un cerco, cruzar entre dos sombras, limpiar el camino a un farol o encadenar puntos. No es un ataque a distancia: obliga a arriesgar el cuerpo.</p>
+<h3>7.2 Onda del farol (habilidad ambiental)</h3>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Activación</strong></td>
+<td>Tocar un farol con al menos 30 de luz</td>
+</tr>
+<tr>
+<td><strong>Costo</strong></td>
+<td>30 de luz</td>
+</tr>
+<tr>
+<td><strong>Radio</strong></td>
+<td>300 px</td>
+</tr>
+<tr>
+<td><strong>Efecto</strong></td>
+<td>Enciende el farol, barre las sombras dentro del radio (+15 × nivel) y genera una onda visual de 0.75 s</td>
+</tr>
+<tr>
+<td><strong>Puntos</strong></td>
+<td>+200 × nivel</td>
+</tr>
+</tbody></table>
+<p>Es la recompensa y la principal fuente de alivio: convierte la energía acumulada en espacio seguro.</p>
+<h3>7.3 Sin armas de fuego</h3>
+<p>No hay proyectiles, munición ni combate cuerpo a cuerpo. La decisión de diseño busca que el jugador <strong>lea el espacio y administre un recurso</strong> en lugar de apuntar. La tensión viene de la escasez de luz, no de la puntería.</p>
+<hr>
+<h2>8. Vestimenta y estética de Lumen</h2>
+<p>Lumen no lleva ropa: su «vestimenta» es su propia biología luminosa. El diseño funciona como un traje de luz que comunica el estado del jugador.</p>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Descripción</th>
+<th>Función de juego</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Núcleo</strong></td>
+<td>Punto blanco de 4.6 px con halo cian</td>
+<td>Legibilidad y punto de mira</td>
+</tr>
+<tr>
+<td><strong>Abdomen</strong></td>
+<td>Esfera ámbar de 3.2 px</td>
+<td>Identidad de luciérnaga; guiño al farol</td>
+</tr>
+<tr>
+<td><strong>Alas</strong></td>
+<td>Dos elipses translúcidas que baten</td>
+<td>Sensación de vuelo y fragilidad</td>
+</tr>
+<tr>
+<td><strong>Aura</strong></td>
+<td>Gradiente cian de 90–166 px</td>
+<td>Radio de recolección y de visibilidad</td>
+</tr>
+<tr>
+<td><strong>Estela</strong></td>
+<td>Partículas cian al moverse</td>
+<td>Velocidad y dirección</td>
+</tr>
+<tr>
+<td><strong>Parpadeo</strong></td>
+<td>Alternancia de alfa al recibir daño</td>
+<td>Comunicar invulnerabilidad</td>
+</tr>
+<tr>
+<td><strong>Combo</strong></td>
+<td>El abdomen brilla más con combos altos</td>
+<td>Feedback de puntaje</td>
+</tr>
+</tbody></table>
+<p><strong>Paleta del personaje:</strong> blanco <code>#ffffff</code>, cian <code>#7ef9ff</code>, menta <code>#9dffcb</code>, ámbar <code>#ffd166</code>.</p>
+<p><strong>Nota de producción:</strong> no hay sistema de cosméticos en la v1.0.0. La idea a futuro es desbloquear paletas (por ejemplo, «Lumen de otoño» en ámbar y rosa) al superar récords, sin afectar la jugabilidad.</p>
+<hr>
+<h2>9. Objetos especiales, props y background</h2>
+<h3>Objetos interactivos</h3>
+<table>
+<thead>
+<tr>
+<th>Objeto</th>
+<th>Apariencia</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Chispa</strong></td>
+<td>Estrella de cuatro puntas con halo cian</td>
+<td>+15 de luz, +puntos, alimenta el combo</td>
+</tr>
+<tr>
+<td><strong>Farol</strong></td>
+<td>Aro con núcleo ámbar sobre un poste</td>
+<td>Objetivo del nivel; cuesta 30 de luz; onda de luz</td>
+</tr>
+<tr>
+<td><strong>Sombra</strong></td>
+<td>Círculo negro con borde violeta y ojos</td>
+<td>Amenaza; quita 22 de luz; se disipa con destello/onda</td>
+</tr>
+<tr>
+<td><strong>Onda de luz</strong></td>
+<td>Anillo ámbar expansivo</td>
+<td>Feedback del farol; limpia sombras</td>
+</tr>
+</tbody></table>
+<h3>Props decorativos</h3>
+<table>
+<thead>
+<tr>
+<th>Prop</th>
+<th>Descripción</th>
+<th>Capa</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Musgo</strong></td>
+<td>Manchas verdes oscuras en el suelo</td>
+<td>Fondo</td>
+</tr>
+<tr>
+<td><strong>Arroyo / estanque</strong></td>
+<td>Trazo azul verdoso con brillo tenue</td>
+<td>Fondo (nivel 3)</td>
+</tr>
+<tr>
+<td><strong>Rocas</strong></td>
+<td>Elipses oscuras con borde azulado</td>
+<td>Fondo</td>
+</tr>
+<tr>
+<td><strong>Tallos y helechos</strong></td>
+<td>Líneas curvas que nacen del borde inferior</td>
+<td>Fondo / primer plano</td>
+</tr>
+<tr>
+<td><strong>Estrellas</strong></td>
+<td>85 puntos con parpadeo independiente</td>
+<td>Fondo lejano</td>
+</tr>
+<tr>
+<td><strong>Motas de polen</strong></td>
+<td>40 puntos flotantes con paralaje</td>
+<td>Fondo medio</td>
+</tr>
+<tr>
+<td><strong>Luciérnagas de fondo</strong></td>
+<td>6 puntos con movimiento sinusoidal</td>
+<td>Fondo lejano</td>
+</tr>
+<tr>
+<td><strong>Viñeta</strong></td>
+<td>Gradiente radial que oscurece los bordes</td>
+<td>Postproceso</td>
+</tr>
+</tbody></table>
+<h3>Background por nivel</h3>
+<ol>
+<li><strong>Jardín de musgo:</strong> musgo, tréboles, luciérnagas dormidas.</li>
+<li><strong>Invernadero roto:</strong> cristales, macetas, reflejos fríos.</li>
+<li><strong>Estanque de luna:</strong> agua, juncos, reflejo de una luna ausente.</li>
+<li><strong>Bosque de helechos:</strong> tallos altos, sombras alargadas.</li>
+<li><strong>Mirador del faro:</strong> cielo abierto, horizonte y el último farol.</li>
+</ol>
+<blockquote>
+<p>En la v1.0.0 el fondo es procedural y comparte la misma base (estrellas, motas, tallos y silueta), con variaciones de color y distribución por nivel. El mapa y los props descritos aquí son la guía para una futura capa de arte dedicada.</p>
+</blockquote>
+<hr>
+<h2>10. Controles, cámara e interfaz</h2>
+<h3>Controles</h3>
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th>Teclado</th>
+<th>Ratón</th>
+<th>Táctil</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Mover</td>
+<td><code>WASD</code> / flechas</td>
+<td>Arrastrar</td>
+<td>Arrastrar el dedo</td>
+</tr>
+<tr>
+<td>Destello</td>
+<td><code>Espacio</code></td>
+<td>—</td>
+<td>Botón <strong>DESTELLO</strong></td>
+</tr>
+<tr>
+<td>Pausa</td>
+<td><code>P</code> / <code>Esc</code></td>
+<td>Botón <strong>PAUSA</strong></td>
+<td>Botón <strong>PAUSA</strong></td>
+</tr>
+<tr>
+<td>Sonido</td>
+<td><code>M</code></td>
+<td>Botón <strong>SONIDO</strong></td>
+<td>Botón <strong>SONIDO</strong></td>
+</tr>
+<tr>
+<td>Confirmar</td>
+<td><code>Espacio</code> / <code>Enter</code></td>
+<td>Botones</td>
+<td>Botones</td>
+</tr>
+</tbody></table>
+<h3>Cámara</h3>
+<p>Fija, cenital, sin scroll. Todo el nivel cabe en 960 × 600 unidades lógicas. La sensación de espacio se logra con paralaje de fondo y viñeta, no con movimiento de cámara.</p>
+<h3>HUD</h3>
+<ul>
+<li><strong>Arriba a la izquierda:</strong> nivel y nombre del escenario.</li>
+<li><strong>Arriba al centro:</strong> barra de luz (100 puntos) con etiqueta numérica; se vuelve roja y pulsa por debajo de 25.</li>
+<li><strong>Arriba a la derecha:</strong> puntaje, botón de sonido y pausa.</li>
+<li><strong>Abajo a la izquierda:</strong> tres puntos de farol (encendido / apagado).</li>
+<li><strong>Abajo a la derecha:</strong> combo activo.</li>
+<li><strong>Centro:</strong> textos flotantes de puntaje y avisos («Necesitas 30 de luz», «FAROL ENCENDIDO»).</li>
+</ul>
+<h3>Accesibilidad</h3>
+<ul>
+<li>Controles completos por teclado y por puntero.</li>
+<li><code>prefers-reduced-motion</code> desactiva animaciones y transiciones.</li>
+<li>Pausa automática al cambiar de pestaña o perder el foco.</li>
+<li>Barra de luz con <code>role=&quot;progressbar&quot;</code> y valor accesible.</li>
+<li>Contraste alto: texto claro sobre fondo oscuro y acentos saturados.</li>
+<li>Sin parpadeos rápidos de pantalla completa (el <em>flash</em> se limita al 70 % de alfa).</li>
+</ul>
+<hr>
+<h2>11. Mecánicas, bucle de juego y score</h2>
+<h3>Mecánicas principales</h3>
+<table>
+<thead>
+<tr>
+<th>Mecánica</th>
+<th>Entrada</th>
+<th>Regla</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Vuelo libre</strong></td>
+<td><code>WASD</code> / flechas / arrastre</td>
+<td>Aceleración con inercia, velocidad máxima 262 px/s, sin gravedad</td>
+<td>Control directo y legible en una sola pantalla</td>
+</tr>
+<tr>
+<td><strong>Luz como recurso</strong></td>
+<td>Pasiva</td>
+<td>Empieza en 100 y baja 5.0–7.0 por segundo según el nivel</td>
+<td>Presión constante: nunca puedes quedarte quieto</td>
+</tr>
+<tr>
+<td><strong>Recolección</strong></td>
+<td>Contacto con chispa</td>
+<td>+15 de luz y puntos; el aura de 90–166 px atrae las chispas cercanas</td>
+<td>Recompensa el movimiento y crea rutas</td>
+</tr>
+<tr>
+<td><strong>Combo</strong></td>
+<td>Encadenar chispas</td>
+<td>+1 por chispa dentro de 2.2 s; máximo ×9; se reinicia con daño</td>
+<td>Riesgo/recompensa: correr para no perder la cadena</td>
+</tr>
+<tr>
+<td><strong>Destello</strong></td>
+<td><code>Espacio</code> / botón táctil</td>
+<td>Cuesta 12 de luz, impulso de 0.16 s, 1.05 s de enfriamiento, 0.42 s de invulnerabilidad</td>
+<td>Defensa activa con costo, no un ataque gratuito</td>
+</tr>
+<tr>
+<td><strong>Encender farol</strong></td>
+<td>Contacto con ≥30 de luz</td>
+<td>Cuesta 30 de luz, +200 × nivel y onda que barre sombras en 300 px</td>
+<td>Objetivo del nivel y alivio táctico</td>
+</tr>
+<tr>
+<td><strong>Sombras</strong></td>
+<td>Persecución autónoma</td>
+<td>Daño de 22 de luz, empuje y reinicio del combo; se disipan con destello u onda</td>
+<td>Amenaza que obliga a leer el espacio</td>
+</tr>
+<tr>
+<td><strong>Dificultad progresiva</strong></td>
+<td>Por nivel</td>
+<td>+1 sombra, +0.5 de drenaje, +10 px/s de velocidad y hasta +28 % con luz baja</td>
+<td>Curva clara sin cambiar las reglas</td>
+</tr>
+</tbody></table>
+<p><strong>Condición de tensión:</strong> las sombras aceleran cuando la luz de Lumen baja, de modo que el peor momento del jugador es también el más peligroso. No hay <em>power-ups</em> temporales ni vidas extra: toda la economía gira en torno a una sola variable.</p>
+<h3>Bucle principal</h3>
+<pre><code>Explorar → recoger chispas → mantener la luz → encender faroles → nivel superado
+     ↑                                                              ↓
+     └──────────────────── nuevo nivel, más sombras ────────────────┘
+</code></pre>
+<h3>Condiciones</h3>
+<ul>
+<li><strong>Victoria de nivel:</strong> 3 faroles encendidos.</li>
+<li><strong>Derrota:</strong> luz a 0 por drenaje o por golpes.</li>
+<li><strong>Victoria de partida:</strong> superar el nivel 5.</li>
+<li><strong>Récord:</strong> se guarda en <code>localStorage</code> al terminar o perder.</li>
+</ul>
+<h3>Tabla de puntaje</h3>
+<table>
+<thead>
+<tr>
+<th>Evento</th>
+<th>Fórmula</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chispa</td>
+<td><code>10 × combo × nivel</code></td>
+<td>El combo se calcula antes de incrementarse</td>
+</tr>
+<tr>
+<td>Farol</td>
+<td><code>200 × nivel</code></td>
+<td>Se suma al encender</td>
+</tr>
+<tr>
+<td>Sombra por destello</td>
+<td><code>25 × nivel</code></td>
+<td>Solo si se atraviesa durante el impulso</td>
+</tr>
+<tr>
+<td>Sombra por onda de farol</td>
+<td><code>15 × nivel</code></td>
+<td>Todas las que estén a menos de 300 px</td>
+</tr>
+<tr>
+<td>Bonus de tiempo</td>
+<td><code>máx(0, 120 − s) × 4</code></td>
+<td>Premia terminar rápido</td>
+</tr>
+<tr>
+<td>Bonus de luz</td>
+<td><code>luz restante × 2</code></td>
+<td>Premia administrar el recurso</td>
+</tr>
+</tbody></table>
+<p><strong>Combo:</strong> ×1 a ×9; ventana de 2.2 s; se reinicia con daño o al vencer la ventana.</p>
+<p><strong>Ejemplo de cálculo (nivel 2, partida de 52.4 s, 68 de luz, 3 faroles, 22 chispas con combo medio ×3):</strong></p>
+<pre><code>chispas:   22 × (10 × 3 × 2)        = 1 320
+faroles:   3 × (200 × 2)            = 1 200
+tiempo:    máx(0, 120 − 52.4) × 4   =   270
+luz:       68 × 2                   =   136
+total                               = 2 926
+</code></pre>
+<h3>Feedback</h3>
+<p>Cada evento tiene respuesta en tres canales: partículas, sonido y texto flotante. El daño añade sacudida de pantalla y un <em>flash</em> rosa; el farol, un <em>flash</em> ámbar, onda expansiva y acorde mayor.</p>
+<hr>
+<h2>12. Música</h2>
+<p>La música es <strong>generativa</strong>: no hay archivos de audio; se programa en tiempo real con <code>OscillatorNode</code>, <code>BiquadFilterNode</code> y <code>GainNode</code>. Cada nivel tiene una nota raíz distinta, de modo que el jugador percibe el cambio de escenario sin necesidad de una melodía fija.</p>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Escenario</th>
+<th>Nota raíz</th>
+<th>Frecuencia</th>
+<th>Carácter</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Jardín de musgo</td>
+<td>La3</td>
+<td>220.00 Hz</td>
+<td>Cálido, introductorio</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Invernadero roto</td>
+<td>Sol3</td>
+<td>196.00 Hz</td>
+<td>Más grave, inquieto</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Estanque de luna</td>
+<td>Si3</td>
+<td>246.94 Hz</td>
+<td>Cristalino, suspendido</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bosque de helechos</td>
+<td>Fa3</td>
+<td>174.61 Hz</td>
+<td>Oscuro, urgente</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Mirador del faro</td>
+<td>Do4</td>
+<td>261.63 Hz</td>
+<td>Elevado, esperanzador</td>
+</tr>
+</tbody></table>
+<h3>Capas de la música</h3>
+<ol>
+<li><strong>Dron:</strong> dos osciladores senoidales (raíz y quinta) a través de un filtro paso bajo con un LFO de 0.06 Hz que «respira».</li>
+<li><strong>Pad:</strong> notas de una escala pentatónica mayor, con ataque de 0.9 s y liberación de 3.6 s, programadas cada 2.7–3.4 s con un planificador de 0.7 s de anticipación.</li>
+<li><strong>Campanas:</strong> un seno agudo cada cuatro pasos, con caída de 1.8 s.</li>
+</ol>
+<h3>Reglas de mezcla</h3>
+<ul>
+<li>La música se detiene en el menú y al perder, y se funde en 0.18 s al cambiar de nivel.</li>
+<li>El volumen general es bajo (0.55 de música, 0.9 de SFX) para no tapar los efectos.</li>
+<li>El audio se desbloquea con el primer gesto del usuario, respetando las políticas de reproducción automática de los navegadores.</li>
+<li>El botón de sonido silencia todo el grafo y recuerda la preferencia en <code>localStorage</code>.</li>
+</ul>
+<hr>
+<h2>13. Efectos de audio</h2>
+<table>
+<thead>
+<tr>
+<th>Efecto</th>
+<th>Evento</th>
+<th>Síntesis</th>
+<th>Duración</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>collect</code></td>
+<td>Recoger chispa</td>
+<td>Seno + triángulo, nota pentatónica según combo, ruido agudo</td>
+<td>0.2 s</td>
+</tr>
+<tr>
+<td><code>dash</code></td>
+<td>Destello</td>
+<td>Ruido filtrado barrido 500→3200 Hz + seno 180→720 Hz</td>
+<td>0.22 s</td>
+</tr>
+<tr>
+<td><code>poof</code></td>
+<td>Sombra disipada</td>
+<td>Triángulo 340→130 Hz + ruido descendente</td>
+<td>0.16 s</td>
+</tr>
+<tr>
+<td><code>hurt</code></td>
+<td>Golpe de sombra</td>
+<td>Sierra 190→52 Hz + ruido 900→120 Hz</td>
+<td>0.38 s</td>
+</tr>
+<tr>
+<td><code>lantern</code></td>
+<td>Encender farol</td>
+<td>Acorde de 5 notas (Do mayor add9) + ruido brillante</td>
+<td>1.5 s</td>
+</tr>
+<tr>
+<td><code>deny</code></td>
+<td>Acción sin luz</td>
+<td>Cuadrada 150→110 Hz, filtro bajo</td>
+<td>0.14 s</td>
+</tr>
+<tr>
+<td><code>levelup</code></td>
+<td>Nivel superado</td>
+<td>Arpegio ascendente de 6 notas</td>
+<td>0.45 s por nota</td>
+</tr>
+<tr>
+<td><code>gameover</code></td>
+<td>Luz a 0</td>
+<td>Descenso cromático de 5 notas + ruido grave</td>
+<td>0.9 s por nota</td>
+</tr>
+<tr>
+<td><code>victory</code></td>
+<td>Final</td>
+<td>Acorde de 7 notas y colchón de ruido</td>
+<td>2.4 s</td>
+</tr>
+<tr>
+<td><code>click</code></td>
+<td>Interfaz</td>
+<td>Seno 880→660 Hz</td>
+<td>0.07 s</td>
+</tr>
+</tbody></table>
+<p><strong>Diseño:</strong> los sonidos de recolección suben de tono con el combo; el daño y el apagón usan frecuencias graves y filtros cerrados; los momentos positivos usan senos y acordes abiertos. Todo se genera sin samples para mantener el repositorio ligero y la licencia limpia.</p>
+<hr>
+<h2>14. Arte y dirección visual</h2>
+<h3>Paleta</h3>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>Hex</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fondo profundo</td>
+<td><code>#04050c</code> / <code>#02040a</code></td>
+<td>Noche</td>
+</tr>
+<tr>
+<td>Cian luz</td>
+<td><code>#7ef9ff</code></td>
+<td>Lumen, chispas, interfaz</td>
+</tr>
+<tr>
+<td>Menta</td>
+<td><code>#9dffcb</code></td>
+<td>Aciertos, combo, subtítulos</td>
+</tr>
+<tr>
+<td>Ámbar</td>
+<td><code>#ffd166</code></td>
+<td>Faroles, puntaje</td>
+</tr>
+<tr>
+<td>Violeta</td>
+<td><code>#a78bfa</code></td>
+<td>Sombras</td>
+</tr>
+<tr>
+<td>Rosa</td>
+<td><code>#ff7b9c</code></td>
+<td>Daño, advertencia</td>
+</tr>
+</tbody></table>
+<h3>Principios</h3>
+<ol>
+<li><strong>Legibilidad antes que detalle:</strong> cada entidad es una forma simple con un halo.</li>
+<li><strong>Contraste por luminosidad:</strong> el fondo nunca compite con la acción.</li>
+<li><strong>Menos es más:</strong> una fuente monoespaciada para HUD y títulos; sin iconos decorativos.</li>
+<li><strong>Todo procedural:</strong> gradientes, partículas y trazos; cero texturas descargadas.</li>
+</ol>
+<h3>Tipografía</h3>
+<ul>
+<li>HUD, títulos y botones: <code>ui-monospace</code>, <code>SFMono-Regular</code>, <code>Menlo</code>, <code>Consolas</code>, <code>monospace</code>.</li>
+<li>Texto narrativo: fuente del sistema (<code>Segoe UI</code>, <code>system-ui</code>).</li>
+<li>Sin fuentes externas: carga instantánea y licencias limpias.</li>
+</ul>
+<hr>
+<h2>15. Requerimientos técnicos</h2>
+<p>El detalle de hardware y software para el desarrollo del juego y de animación está en <a href="REQUERIMIENTOS.html"><code>REQUERIMIENTOS.md</code></a>. Resumen:</p>
+<ul>
+<li><strong>Jugar:</strong> cualquier navegador moderno con Canvas 2D y Web Audio; 2 GB de RAM; sin GPU dedicada.</li>
+<li><strong>Desarrollar:</strong> equipo con 8 GB de RAM, VS Code, Git, navegador con DevTools y servidor estático local.</li>
+<li><strong>Animar/ilustrar:</strong> Inkscape o Figma para SVG, Krita o GIMP para mapas de bits, Audacity opcional para referencia sonora.</li>
+<li><strong>Publicar:</strong> cuenta de GitHub y GitHub Pages (gratuito).</li>
+</ul>
+<hr>
+<h2>16. Storyboard y guión</h2>
+<ul>
+<li><strong>Storyboard completo (6 viñetas):</strong> <a href="STORYBOARD.html"><code>STORYBOARD.md</code></a></li>
+<li><strong>Guión narrativo y textos del juego:</strong> <a href="GUION.html"><code>GUION.md</code></a></li>
+</ul>
+<p align="center">
+  <img src="../assets/storyboard.svg" alt="Storyboard de LUMEN" width="100%">
+</p><hr>
+<h2>17. Plan de trabajo</h2>
+<p>Cronograma, ramas, convenciones de commit y checklist de pruebas: <a href="PLAN-DE-TRABAJO.html"><code>PLAN-DE-TRABAJO.md</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>Hito</th>
+<th>Fecha</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Concepto y propuesta</td>
+<td>4 nov</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Prototipo jugable</td>
+<td>5–6 nov</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Niveles y puntaje</td>
+<td>7 nov</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Audio y UI</td>
+<td>8 nov</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Pruebas y balance</td>
+<td>9 nov</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Documentación</td>
+<td>10 nov</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Video y despliegue</td>
+<td>11 nov</td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>Entrega</td>
+<td>12 nov</td>
+<td>⏳</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>18. Riesgos y limitaciones</h2>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Impacto</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Políticas de autoplay bloquean el audio</td>
+<td>Medio</td>
+<td>El audio se inicia con el primer gesto y hay botón de silencio</td>
+</tr>
+<tr>
+<td>Pantallas muy pequeñas en vertical</td>
+<td>Medio</td>
+<td>Controles táctiles, HUD compacto y paneles desplazables; se recomienda horizontal</td>
+</tr>
+<tr>
+<td>Rendimiento en equipos antiguos</td>
+<td>Bajo</td>
+<td>Canvas 2D, menos de 500 partículas, <code>dt</code> limitado y sin sombras costosas</td>
+</tr>
+<tr>
+<td>Pérdida del récord al limpiar el navegador</td>
+<td>Bajo</td>
+<td>Se informa que el récord es local; no hay cuentas</td>
+</tr>
+<tr>
+<td>Balance demasiado difícil</td>
+<td>Medio</td>
+<td>Drenaje configurable por nivel, chispas abundantes, onda de farol y modo QA</td>
+</tr>
+<tr>
+<td>Assets SVG no renderizados en algún visor</td>
+<td>Bajo</td>
+<td>Se incluyen capturas PNG de respaldo en el README</td>
+</tr>
+</tbody></table>
+<h3>Limitaciones conocidas</h3>
+<ul>
+<li>El récord es local (no hay servidor).</li>
+<li>No hay guardado de partida a mitad de nivel.</li>
+<li>La música es procedural y no tiene una melodía fija; cada partida suena distinta.</li>
+<li>El modo QA (<code>?test=1</code>) desactiva daño y drenaje; no debe usarse para jugar.</li>
+</ul>
+<hr>
+<h2>19. Créditos</h2>
+<table>
+<thead>
+<tr>
+<th>Rol</th>
+<th>Responsable</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Diseño de juego y GDD</td>
+<td>Diego Alejandro Franco Partida</td>
+</tr>
+<tr>
+<td>Programación (Canvas, lógica, audio)</td>
+<td>Diego Alejandro Franco Partida</td>
+</tr>
+<tr>
+<td>Arte vectorial (splash, mapa, storyboard)</td>
+<td>Diego Alejandro Franco Partida</td>
+</tr>
+<tr>
+<td>Música y efectos</td>
+<td>Diego Alejandro Franco Partida (síntesis procedural)</td>
+</tr>
+<tr>
+<td>Documentación y pruebas</td>
+<td>Diego Alejandro Franco Partida</td>
+</tr>
+<tr>
+<td>Motor</td>
+<td>HTML5 Canvas 2D + Web Audio API</td>
+</tr>
+<tr>
+<td>Licencia</td>
+<td>MIT</td>
+</tr>
+</tbody></table>
+<p>Agradecimientos a la documentación abierta de MDN y a la comunidad de Web Audio.</p>
+<p align="center"><sub>LUMEN · Documento de diseño · v1.0.0</sub></p>
+</article>
+</main>
+</body>
+</html>
