@@ -230,7 +230,7 @@ p[align="center"] img { display: inline-block; }
   color: var(--accent);
   margin-bottom: 6px;
 }
-.doc-card span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.doc-card > span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 .doc-card em {
   display: block;
   margin-top: 10px;
@@ -241,18 +241,37 @@ p[align="center"] img { display: inline-block; }
   font-style: normal;
   color: var(--faint);
 }
-.badge-pdf {
+.doc-card .badge-pdf,
+.doc-card .badge-docx {
   display: inline-block;
   margin-left: 6px;
   padding: 1px 6px;
   border-radius: 4px;
-  background: #fdecec;
-  color: #a33;
   font-family: var(--mono);
   font-size: 9px;
+  font-weight: 400;
   letter-spacing: 0.1em;
   vertical-align: middle;
 }
+.doc-card .badge-pdf { background: #fdecec; color: #a33; }
+.doc-card .badge-docx { background: #eaf1fb; color: #1b4f9c; }
+.downloads { margin-top: 38px; }
+.downloads table { font-size: 12.5px; }
+.downloads td:first-child { font-weight: 600; }
+.downloads .fmt a {
+  display: inline-block;
+  margin-right: 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.downloads .fmt a:hover { border-color: var(--accent); background: var(--accent-soft); }
+
 .foot-note {
   margin-top: 40px;
   padding-top: 18px;
@@ -324,42 +343,56 @@ p[align="center"] img { display: inline-block; }
   <h2 style="margin-top:34px">Documentación del proyecto</h2>
   <p><strong>LUMEN</strong> es un arcade web minimalista construido con JavaScript puro, Canvas 2D y Web Audio API, sin
   frameworks ni archivos externos de imagen o sonido. Esta página reúne los documentos de diseño y técnicos que
-  acompañan al juego, en su versión navegable. Cada documento está disponible también en <strong>Markdown</strong>
-  dentro del repositorio y en <strong>PDF</strong> para entrega.</p>
+  acompañan al juego, en su versión navegable. Cada documento está disponible también en
+  <strong>Markdown</strong> dentro del repositorio, y en <strong>PDF</strong> y <strong>Word</strong> para entrega.</p>
   <p><strong>Juego en línea:</strong> <a href="https://diegouth.github.io/lumen/">https://diegouth.github.io/lumen/</a><br>
   <strong>Repositorio:</strong> <a href="https://github.com/diegouth/lumen">https://github.com/diegouth/lumen</a></p>
 </section>
 <section class="doc-grid">
 <a class="doc-card" href="GDD.html">
-      <strong>GDD<span class="badge-pdf">PDF</span></strong>
+      <strong>GDD<span class="badge-pdf">PDF</span><span class="badge-docx">WORD</span></strong>
       <span>Concepto, historia, mecánicas, personajes, niveles, armas, vestimenta, props, arte, audio, score y créditos.</span>
       <em>Documento de Diseño de Juego</em>
     </a>
 <a class="doc-card" href="REQUERIMIENTOS.html">
-      <strong>Requerimientos</strong>
+      <strong>Requerimientos<span class="badge-pdf">PDF</span><span class="badge-docx">WORD</span></strong>
       <span>Hardware y herramientas de software para el desarrollo de videojuegos y de animación.</span>
       <em>Documento técnico de requerimientos</em>
     </a>
 <a class="doc-card" href="STORYBOARD.html">
-      <strong>Storyboard</strong>
+      <strong>Storyboard<span class="badge-pdf">PDF</span><span class="badge-docx">WORD</span></strong>
       <span>Seis viñetas del flujo de juego, transiciones y principios de cámara.</span>
       <em>Storyboard</em>
     </a>
 <a class="doc-card" href="GUION.html">
-      <strong>Guión</strong>
+      <strong>Guión<span class="badge-pdf">PDF</span><span class="badge-docx">WORD</span></strong>
       <span>Prólogo, textos por nivel, diálogos, avisos, finales y reglas de estilo.</span>
       <em>Guión narrativo</em>
     </a>
 <a class="doc-card" href="PLAN-DE-TRABAJO.html">
-      <strong>Plan de trabajo</strong>
+      <strong>Plan de trabajo<span class="badge-pdf">PDF</span><span class="badge-docx">WORD</span></strong>
       <span>Cronograma, alcance MoSCoW, ramas, convenciones de commit, roles y control de calidad.</span>
       <em>Plan de trabajo y flujo Git</em>
     </a>
 <a class="doc-card" href="VIDEO.html">
-      <strong>Guión del video</strong>
+      <strong>Guión del video<span class="badge-pdf">PDF</span><span class="badge-docx">WORD</span></strong>
       <span>Guion segundo a segundo del video de 90 segundos sobre el código.</span>
       <em>Guión del video explicativo</em>
     </a>
+</section>
+<section class="downloads">
+  <h2>Descargas</h2>
+  <table>
+    <thead><tr><th>Documento</th><th>Formatos</th></tr></thead>
+    <tbody>
+<tr><td>GDD</td><td class="fmt"><a href="GDD.html">HTML</a><a href="pdf/GDD.pdf">PDF</a><a href="docx/GDD.docx">Word</a></td></tr>
+<tr><td>Requerimientos</td><td class="fmt"><a href="REQUERIMIENTOS.html">HTML</a><a href="pdf/Requerimientos.pdf">PDF</a><a href="docx/Requerimientos.docx">Word</a></td></tr>
+<tr><td>Storyboard</td><td class="fmt"><a href="STORYBOARD.html">HTML</a><a href="pdf/Storyboard.pdf">PDF</a><a href="docx/Storyboard.docx">Word</a></td></tr>
+<tr><td>Guión</td><td class="fmt"><a href="GUION.html">HTML</a><a href="pdf/Guion.pdf">PDF</a><a href="docx/Guion.docx">Word</a></td></tr>
+<tr><td>Plan de trabajo</td><td class="fmt"><a href="PLAN-DE-TRABAJO.html">HTML</a><a href="pdf/Plan-de-trabajo.pdf">PDF</a><a href="docx/Plan-de-trabajo.docx">Word</a></td></tr>
+<tr><td>Guión del video</td><td class="fmt"><a href="VIDEO.html">HTML</a><a href="pdf/Guion-del-video.pdf">PDF</a><a href="docx/Guion-del-video.docx">Word</a></td></tr>
+    </tbody>
+  </table>
 </section>
 <section class="foot-note">
   Portafolio de evidencias · Desarrollo de Videojuegos · Diego Alejandro Franco Partida · Noviembre de 2026

@@ -284,7 +284,7 @@ git push -u origin main
 
 ## Documentación del proyecto
 
-> **Portafolio navegable:** <https://diegouth.github.io/lumen/docs/> — todos los documentos en HTML, con su versión en **PDF** descargable.
+> **Portafolio navegable:** <https://diegouth.github.io/lumen/docs/> — todos los documentos en **HTML**, con sus versiones en **PDF** (`docs/pdf/`) y **Word** (`docs/docx/`).
 
 | Documento | Contenido | En línea | PDF |
 | --- | --- | --- | --- |
