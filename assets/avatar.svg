@@ -19,5 +19,4 @@
   <text x="210" y="356" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="10" letter-spacing="4" fill="#6f8a9b">DISEÑO · CÓDIGO · ARTE · AUDIO</text>
   <circle cx="330" cy="86" r="6" fill="#ffd166"/>
   <circle cx="330" cy="86" r="18" fill="#ffd166" opacity=".18"/>
-  <text x="210" y="392" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="9" letter-spacing="2" fill="#3f5666">SUSTITUYE ESTE ARCHIVO POR TU FOTOGRAFÍA (assets/avatar.svg o .jpg)</text>
 </svg>
